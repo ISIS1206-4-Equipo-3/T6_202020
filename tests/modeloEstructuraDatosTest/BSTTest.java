@@ -1,16 +1,14 @@
 package modeloEstructuraDatosTest;
 
+import org.junit.Test;
+
 import modeloEstructuraDatos.BST;
-import modeloEstructuraDatosTest.Before;
-import testModeloEstructuraDatos.Test;
 
 public class BSTTest {
-
 	
-	BST<Integer, String> bst1;
-	BST<String, String> bst2;
+	private BST bst1;
+	private BST bst2;
 	
-	@Before
 	public void setUp1() {
 		bst1 = new BST<Integer, String>(null);
 		bst1.put(5, "cinco");
@@ -25,7 +23,7 @@ public class BSTTest {
 		bst1.put(7, "siete");
 		bst1.put(0, "cero");
 	}
-	@Before
+	
 	public void setUp2() {
 		bst2 = new BST<String, String>(null);
 		bst2.put("cinco", "5");
@@ -40,65 +38,9 @@ public class BSTTest {
 		bst2.put( "siete","7");
 		bst2.put( "cero","0");
 	}
-
+	
 	@Test
-	public void testSize() {
-		fail("Not yet implemented");
+	public void sizeTest() {
+		setUp1();
 	}
-
-	@Test
-	public void testIsEmpty() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGet() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetHeight() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testContains() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testPut() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testHeight() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testMin() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testMax() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testKeySet() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testKeysInRange() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testValuesInRange() {
-		fail("Not yet implemented");
-	}
-
 }
