@@ -11,8 +11,18 @@ public class View {
 	
 	public void printMenu()
 	{
-		System.out.println("1. Realizar la carga de las fuentes de datos de las peliÌ�culas.");
-	
+		System.out.println("1. Conocer los accidentes en una fecha (G-LAB REQ1)");
+		System.out.println("2. Conocer los accidentes anteriores a una fecha(I REQ2)");
+		System.out.println("3. Conocer los accidentes en un rango de fechas(I REQ3)");
+		System.out.println("4. Conocer el estado con mas accidentes (I REQ4)");
+		System.out.println("5. Conocer los accidentes por rango de horas (G REQ5)");
+		System.out.println("6. Conocer la zona geográfica mas accidentada (B REQ1)");
+		System.out.println("7. Usar el conjunto completo de datos (B REQ1)");
+		System.out.println("8. Informacion de creadores");
+		System.out.println("9. Cambiar datos a cargar");
+		System.out.println("\n0. <-----EXIT");
+		
+		
 	}
 
 	public void printMessage(String mensaje) {

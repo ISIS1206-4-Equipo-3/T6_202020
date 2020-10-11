@@ -56,6 +56,9 @@ public class Controlador {
 					view.printMessage("Requerimiento aun no realizado."); //ELIMINAR AL REALIZAR REQUERIMIENTO
 					break;
 				case 8:
+					view.printInformacionDeCreadores(); //ELIMINAR AL REALIZAR REQUERIMIENTO
+					break;
+				case 9:
 					view.printCambiarDatosACargar();
 					int opcion1 = Integer.parseInt(lectura.nextLine());
 					switch(opcion1) {
@@ -71,13 +74,10 @@ public class Controlador {
 						view.printErrorConRangoDeEntrada();
 						break;
 					}
-					break;
-				case 9:
+					break;	
+				case 0:
 					acabar=true;
 					view.printDespedida();
-					break;
-				case 10:
-					view.printMessage("Requerimiento aun no realizado."); //ELIMINAR AL REALIZAR REQUERIMIENTO
 					break;
 				
 				}

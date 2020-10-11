@@ -9,7 +9,7 @@ public class Nodo {
 	private int numeroDeNodosBajoEl;
 
 	public Nodo(Object pkey, Object value) {
-		numeroDeNodosBajoEl = 0;
+		numeroDeNodosBajoEl = 1;
 		this.key = pkey;
 		this.valor = value;
 	}

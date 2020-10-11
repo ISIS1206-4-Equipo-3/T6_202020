@@ -75,15 +75,16 @@ public class BST<K extends Comparable<K>, V> implements TablaSimbolosOrdenada<K,
 	}
 
 	@Override
-	public void put(K key, V val) {
-		raiz = put(raiz, key, val);
+	public void put(K key, V valor) {
+		raiz = put(raiz, key, valor);
 	}
 
 	private Nodo put(Nodo nodo, K key, V valor) {
+		if(nodo==null) return new Nodo(key, valor);
 		int cmp = key.compareTo((K) nodo.darKey());
 		if (cmp < 0) nodo.setIzquierdo(put(nodo.darIzquierdo(), key, valor));
 		else if (cmp > 0) nodo.setDerecho(put(nodo.darDerecho(), key, valor));
-		else nodo.cambiarValor(valor);
+		else {nodo.cambiarValor(valor);}
 		int nuevoNumeroDeNodosBajoEl = size(nodo.darIzquierdo()) + size(nodo.darDerecho()) + 1;
 		nodo.establecerNumNodosBajoEl(nuevoNumeroDeNodosBajoEl);
 		return nodo;
@@ -108,6 +109,7 @@ public class BST<K extends Comparable<K>, V> implements TablaSimbolosOrdenada<K,
 
 	@Override
 	public K min() {
+		if (raiz==null) return null;
 		Nodo act = raiz;
 		while (act.tieneIzquierdo()) act = act.darIzquierdo();
 		return (K) act.darKey();
@@ -115,6 +117,7 @@ public class BST<K extends Comparable<K>, V> implements TablaSimbolosOrdenada<K,
 
 	@Override
 	public K max() {
+		if (raiz==null) return null;
 		Nodo act = raiz;
 		while (act.tieneDerecho()) act = act.darDerecho();
 		return (K) act.darKey();
@@ -122,6 +125,7 @@ public class BST<K extends Comparable<K>, V> implements TablaSimbolosOrdenada<K,
 
 	@Override
 	public List<K> keySet() {
+		if (raiz==null) return null;
 		return keySet(raiz);
 	}
 	
@@ -135,14 +139,30 @@ public class BST<K extends Comparable<K>, V> implements TablaSimbolosOrdenada<K,
 
 	@Override
 	public List<K> keysInRange(K init, K end) {
-		// TODO Auto-generated method stub
-		return null;
+		if (raiz==null) return null;
+		return keysInRange(raiz, init, end);
+	}
+	
+	private List<K> keysInRange(Nodo nodo, K init, K end) {
+		List<K> lista = new  ArrayList<K>();
+		if((((K) nodo.darKey()).compareTo(init)>=0) && (((K) nodo.darKey()).compareTo(end)<=0)) lista.add((K)nodo.darKey());
+		if(nodo.tieneIzquierdo()) lista.addAll(keysInRange(nodo.darIzquierdo(),init,end));
+		if(nodo.tieneDerecho()) lista.addAll(keysInRange(nodo.darDerecho(),init,end));
+		return lista;
 	}
 
 	@Override
 	public List<V> valuesInRange(K init, K end) {
-		// TODO Auto-generated method stub
-		return null;
+		if (raiz==null) return null;
+		return valuesInRange(raiz, init, end);
+	}
+	
+	private List<V> valuesInRange(Nodo nodo, K init, K end) {
+		List<V> lista = new  ArrayList<V>();
+		if((((K) nodo.darKey()).compareTo(init)>=0) && (((K) nodo.darKey()).compareTo(end)<=0)) lista.add((V)nodo.darValor());
+		if(nodo.tieneIzquierdo()) lista.addAll(valuesInRange(nodo.darIzquierdo(),init,end));
+		if(nodo.tieneDerecho()) lista.addAll(valuesInRange(nodo.darDerecho(),init,end));
+		return lista;
 	}
 
 }
