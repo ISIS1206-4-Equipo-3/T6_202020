@@ -35,7 +35,16 @@ public class Controlador {
 				int opcion = Integer.parseInt(lectura.nextLine());
 				switch(opcion) {
 				case 1:
-					view.printMessage("Requerimiento aun no realizado."); //ELIMINAR AL REALIZAR REQUERIMIENTO
+					view.printMessage("Escriba la fecha en la que desea conocer los accidentes");
+					String fecha = lectura.nextLine();
+					try
+					{
+						System.out.println(modelo.conocerAccidentesDeUnaFecha(fecha));
+					}
+					catch (Exception e)
+					{
+						System.out.println("No se uso el formato adecuado, por favor usar el formato AAAA-MM-DD.");
+					}
 					break;
 				case 2:
 					view.printMessage("Requerimiento aun no realizado."); //ELIMINAR AL REALIZAR REQUERIMIENTO
@@ -74,7 +83,10 @@ public class Controlador {
 						view.printErrorConRangoDeEntrada();
 						break;
 					}
-					break;	
+					break;
+				case 10:
+					modelo.cargarDatosPorFechaInicial(modelo.RUTA_DATOS_PRINCIPALES);
+					break;
 				case 0:
 					acabar=true;
 					view.printDespedida();

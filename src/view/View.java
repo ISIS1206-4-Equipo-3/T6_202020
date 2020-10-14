@@ -20,6 +20,7 @@ public class View {
 		System.out.println("7. Usar el conjunto completo de datos (B REQ1)");
 		System.out.println("8. Informacion de creadores");
 		System.out.println("9. Cambiar datos a cargar");
+		System.out.println("10. Cargar datos ");
 		System.out.println("\n0. <-----EXIT");
 		
 		
