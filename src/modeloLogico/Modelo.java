@@ -24,6 +24,8 @@ public class Modelo {
 	private FileReader archivo;
 	private CSVReader lector;
 	public BST tabla;
+	
+	
 	public void cargarDatosPorFechaInicial(String rutaPrincipal)
 	{
 	try {
@@ -87,6 +89,7 @@ public class Modelo {
 	
 	public String conocerAccidentesDeUnaFecha(String fecha) throws Exception
 	{
+		if(tabla ==null) return "\n++CAUTION: Es necesario cargar primero los datos (Opcion 10)\n";
 		DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 			Date fechaInicial = formato.parse(fecha);
 			 ArrayList accidentes = (ArrayList) tabla.get(fechaInicial);
