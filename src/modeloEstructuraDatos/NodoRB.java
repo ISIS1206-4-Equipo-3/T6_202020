@@ -7,12 +7,20 @@ public class NodoRB {
 	private NodoRB izquierdo;
 	private NodoRB derecho;
 	private int numeroDeNodosBajoEl;
+	private boolean rojo;
 
 	public NodoRB(Object pkey, Object value) {
 		numeroDeNodosBajoEl = 1;
 		this.key = pkey;
 		this.valor = value;
+		this.rojo = false;
 	}
+	
+	public boolean esRojo () {return rojo;}
+	
+	public void setNegro () {rojo = false;}
+	
+	public void setRojo () {rojo = true;}
 	
 	public void establecerNumNodosBajoEl(int nuevoNumero) { numeroDeNodosBajoEl = nuevoNumero;}
 	
@@ -40,6 +48,17 @@ public class NodoRB {
 	public boolean tieneDerecho () {
 		if(derecho==null) return false;
 		else { return true;}
+	}
+	
+	private boolean verificarHijosParaRojo() {
+		boolean rta = true;
+		if(tieneIzquierdo()) {
+			if (darIzquierdo().esRojo()) rta = false;
+		}
+		if(tieneDerecho()) {
+			if (darDerecho().esRojo()) rta = false;
+		}
+		return rta;
 	}
 //
 //	public int compareTo(Nodo o) {
