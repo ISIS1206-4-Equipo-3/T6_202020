@@ -27,7 +27,6 @@ public class RBT<K extends Comparable<K>, V> implements TablaSimbolosOrdenada<K,
 	private V get(NodoRB nodo, K key) {
 		if (nodo == null) return null;
 		int resultadoComparacion = key.compareTo((K) nodo.darKey());
-
 		if (resultadoComparacion < 0) return get(nodo.darIzquierdo(), key); 
 		else if (resultadoComparacion > 0) return get(nodo.darDerecho(), key); 
 		else{ return (V) nodo.darValor();}
@@ -75,6 +74,7 @@ public class RBT<K extends Comparable<K>, V> implements TablaSimbolosOrdenada<K,
 		if (cmp < 0) nodo.setIzquierdo(put(nodo.darIzquierdo(), key, valor));
 		else if (cmp > 0) nodo.setDerecho(put(nodo.darDerecho(), key, valor));
 		else if (cmp ==0) nodo.anadirValorANodo(valor);
+		
 		if (esRojo(nodo.darDerecho()) && !esRojo(nodo.darIzquierdo())) nodo = rotarIzquierdo(nodo);
 		if (esRojo(nodo.darIzquierdo()) && esRojo(nodo.darIzquierdo().darIzquierdo())) nodo = rotarDerecho(nodo);
 		if (esRojo(nodo.darIzquierdo()) && esRojo(nodo.darDerecho())) flipColores(nodo);

@@ -20,7 +20,7 @@ public class Accidente {
 	public void imprimirAccidente()
 	{
 		System.out.println("Id: " + id);
-		System.out.println("Fecha inicial: " + (fechaInicial.getYear()+1900) + "-" + fechaInicial.getMonth() + "-" + fechaInicial.getDay());
+		System.out.println("Fecha inicial: " + (fechaInicial.getYear()+1900) + "-" + (fechaInicial.getMonth()+1) + "-" + fechaInicial.getDate());
 		System.out.println("Severidad: "+ severidad);
 		System.out.println("Ciudad: "+ ciudad + "\n");
 		

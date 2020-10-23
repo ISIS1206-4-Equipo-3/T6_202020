@@ -68,7 +68,6 @@ public class BST<K extends Comparable<K>, V> implements TablaSimbolosOrdenada<K,
 				rta.add(nodo.darValor());
 				return (rta);
 			}
-			
 		}
 	}
 	
