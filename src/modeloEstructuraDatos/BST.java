@@ -1,6 +1,7 @@
 package modeloEstructuraDatos;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class BST<K extends Comparable<K>, V> implements TablaSimbolosOrdenada<K, V> {
@@ -40,9 +41,38 @@ public class BST<K extends Comparable<K>, V> implements TablaSimbolosOrdenada<K,
 
 		if (resultadoComparacion < 0) return get(nodo.darIzquierdo(), key); 
 		else if (resultadoComparacion > 0) return get(nodo.darDerecho(), key); 
-		else{ return (V) nodo.darValor();}
+		else{ 
+			try {
+				return (V) nodo.darValor();
+			}
+			 catch (Exception e) {
+				 return (V)(((ArrayList<Object>) (nodo.darValor())).get(0));
+			 }
+		}
 	}
+	
+	public ArrayList<Object> getAll(K key) {
+		return getAll(raiz, key);
+	}
+	private ArrayList getAll(Nodo nodo, K key) {
+		if (nodo == null) return null;
+		int resultadoComparacion = key.compareTo((K) nodo.darKey());
 
+		if (resultadoComparacion < 0) return getAll(nodo.darIzquierdo(), key); 
+		else if (resultadoComparacion > 0) return getAll(nodo.darDerecho(), key); 
+		else{ 
+			try {
+				return (ArrayList) nodo.darValor();
+			}catch(Exception e) {
+				ArrayList<Object> rta = new ArrayList<Object>();
+				rta.add(nodo.darValor());
+				return (rta);
+			}
+			
+		}
+	}
+	
+	
 	@Override
 	public int getHeight(K key) {
 		int rta = 1;
@@ -84,6 +114,7 @@ public class BST<K extends Comparable<K>, V> implements TablaSimbolosOrdenada<K,
 		int cmp = key.compareTo((K) nodo.darKey());
 		if (cmp < 0) nodo.setIzquierdo(put(nodo.darIzquierdo(), key, valor));
 		else if (cmp > 0) nodo.setDerecho(put(nodo.darDerecho(), key, valor));
+		else if (cmp ==0) nodo.anadirValorANodo(valor);
 		else {nodo.cambiarValor(valor);}
 		int nuevoNumeroDeNodosBajoEl = size(nodo.darIzquierdo()) + size(nodo.darDerecho()) + 1;
 		nodo.establecerNumNodosBajoEl(nuevoNumeroDeNodosBajoEl);
@@ -159,7 +190,19 @@ public class BST<K extends Comparable<K>, V> implements TablaSimbolosOrdenada<K,
 	
 	private List<V> valuesInRange(Nodo nodo, K init, K end) {
 		List<V> lista = new  ArrayList<V>();
-		if((((K) nodo.darKey()).compareTo(init)>=0) && (((K) nodo.darKey()).compareTo(end)<=0)) lista.add((V)nodo.darValor());
+		if((((K) nodo.darKey()).compareTo(init)>=0) && (((K) nodo.darKey()).compareTo(end)<=0)) {
+			try {
+				ArrayList<V> definitiva = new ArrayList<V>();
+				ArrayList<Object> listaObjetos = (ArrayList<Object>) nodo.darValor();
+				for (Object object : listaObjetos) {
+					definitiva.add((V) object);
+				}
+				lista.addAll(definitiva);
+			}catch (Exception e) {
+				lista.add((V)nodo.darValor());
+			}
+		}
+			
 		if(nodo.tieneIzquierdo()) lista.addAll(valuesInRange(nodo.darIzquierdo(),init,end));
 		if(nodo.tieneDerecho()) lista.addAll(valuesInRange(nodo.darDerecho(),init,end));
 		return lista;

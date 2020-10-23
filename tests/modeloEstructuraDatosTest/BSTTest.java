@@ -17,6 +17,7 @@ public class BSTTest {
 	public void setUp1() {
 		bst1 = new BST<Integer, String>(null);
 		bst1.put(5, "cinco");
+		bst1.put(5, "cinco2");
 		bst1.put(3, "tres");
 		bst1.put(1, "uno");
 		bst1.put(2, "dos");
@@ -72,6 +73,16 @@ public class BSTTest {
 		bst2.put( "cero","0");
 	}
 	
+	public void setUp6(){
+		
+		bst2 = new BST<Integer, String>(null);
+		bst2.put(5, "1,5");
+		bst2.put(5, "2,5");
+		bst2.put(5, "3,5");
+		bst2.put(5, "4,5");
+		bst2.put(5, "5,5");
+	}
+	
 	
 	@Test
 	public void sizeTest() {
@@ -96,7 +107,7 @@ public class BSTTest {
 		assertEquals("nueve",bst1.get(9));
 		assertEquals("cero",bst1.get(0));
 		assertEquals("uno",bst1.get(1));
-		assertEquals("cinco",bst1.get(5));
+		assertEquals(2,((ArrayList<Object>) bst1.get(5)).size());
 		
 		setUp5();
 		assertEquals("8",bst2.get("ocho"));
@@ -211,7 +222,18 @@ public class BSTTest {
 		assertEquals(false,bst1.valuesInRange(3,5).contains("uno"));
 		assertEquals(false,bst1.valuesInRange(3,5).contains("diez"));
 		assertEquals(false,bst1.valuesInRange(3,5).contains("seis"));
-		assertEquals(5,bst1.valuesInRange(3,7).size());
+		assertEquals(6,bst1.valuesInRange(3,7).size());
+	}
+	
+
+	@Test
+	public void revisarConRepeticiones() {
+		setUp6();
+		assertEquals(1,bst2.height());
+		assertEquals(true,bst2.valuesInRange(4,6).contains("1,5"));
+		assertEquals(true,bst2.valuesInRange(4,6).contains("3,5"));
+		assertEquals(true,bst2.valuesInRange(4,6).contains("5,5"));
+		
 	}
 	
 	

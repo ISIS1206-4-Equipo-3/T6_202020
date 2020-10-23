@@ -1,5 +1,8 @@
 package modeloEstructuraDatos;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class Nodo {
 
 	private Object key;
@@ -40,6 +43,19 @@ public class Nodo {
 	public boolean tieneDerecho () {
 		if(derecho==null) return false;
 		else { return true;}
+	}
+	
+	public void anadirValorANodo (Object pValor) {
+		ArrayList<Object> listaDeNodos= new ArrayList<Object>();
+		try {
+			listaDeNodos.addAll( (ArrayList<Object>) valor);
+			listaDeNodos.add(pValor);
+		}catch (Exception e) {
+			listaDeNodos.add(valor);
+			listaDeNodos.add(pValor);
+		}
+		this.valor = listaDeNodos;
+		
 	}
 //
 //	public int compareTo(Nodo o) {

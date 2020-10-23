@@ -4,6 +4,8 @@ import java.util.List;
 
 public class RBT<K extends Comparable<K>, V> implements TablaSimbolosOrdenada<K,V>{
 
+	private NodoRB raiz;
+	
 	@Override
 	public int size() {
 		// TODO Auto-generated method stub
@@ -18,8 +20,16 @@ public class RBT<K extends Comparable<K>, V> implements TablaSimbolosOrdenada<K,
 
 	@Override
 	public V get(K key) {
-		// TODO Auto-generated method stub
-		return null;
+		return get(raiz, key);
+	}
+
+	private V get(NodoRB nodo, K key) {
+		if (nodo == null) return null;
+		int resultadoComparacion = key.compareTo((K) nodo.darKey());
+
+		if (resultadoComparacion < 0) return get(nodo.darIzquierdo(), key); 
+		else if (resultadoComparacion > 0) return get(nodo.darDerecho(), key); 
+		else{ return (V) nodo.darValor();}
 	}
 
 	@Override
