@@ -1,17 +1,18 @@
 package modeloEstructuraDatos;
 
+import java.util.ArrayList;
 
 public class NodoRB {
 
+	public static final boolean ROJO = true;
+	public static final boolean NEGRO = false;
 	private Object key;
 	private Object valor;
 	private NodoRB izquierdo;
 	private NodoRB derecho;
 	private int numeroDeNodosBajoEl;
-	private boolean rojo;
 	private boolean color;
-	public static final boolean RED = true;
-	public static final boolean BLACK = false;
+
 	
 	
 	
@@ -19,15 +20,14 @@ public class NodoRB {
 		numeroDeNodosBajoEl = 1;
 		this.key = pkey;
 		this.valor = value;
-		this.rojo = false;
 		this.color = color;
 	}
 	
-	public boolean esRojo () {return rojo;}
+	public boolean esRojo () {return color;}
 	
-	public void setNegro () {rojo = false;}
+	public void setNegro () {color = NEGRO;}
 	
-	public void setRojo () {rojo = true;}
+	public void setRojo () {color = ROJO;}
 	
 	public void establecerNumNodosBajoEl(int nuevoNumero) { numeroDeNodosBajoEl = nuevoNumero;}
 	
@@ -50,6 +50,18 @@ public class NodoRB {
 	public boolean tieneIzquierdo () {
 		if(izquierdo==null) return false;
 		else { return true;}
+	}
+	public void anadirValorANodo (Object pValor) {
+		ArrayList<Object> listaDeNodos= new ArrayList<Object>();
+		try {
+			listaDeNodos.addAll( (ArrayList<Object>) valor);
+			listaDeNodos.add(pValor);
+		}catch (Exception e) {
+			listaDeNodos.add(valor);
+			listaDeNodos.add(pValor);
+		}
+		this.valor = listaDeNodos;
+		
 	}
 	
 	public boolean tieneDerecho () {

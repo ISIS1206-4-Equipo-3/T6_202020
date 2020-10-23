@@ -115,7 +115,6 @@ public class BST<K extends Comparable<K>, V> implements TablaSimbolosOrdenada<K,
 		if (cmp < 0) nodo.setIzquierdo(put(nodo.darIzquierdo(), key, valor));
 		else if (cmp > 0) nodo.setDerecho(put(nodo.darDerecho(), key, valor));
 		else if (cmp ==0) nodo.anadirValorANodo(valor);
-		else {nodo.cambiarValor(valor);}
 		int nuevoNumeroDeNodosBajoEl = size(nodo.darIzquierdo()) + size(nodo.darDerecho()) + 1;
 		nodo.establecerNumNodosBajoEl(nuevoNumeroDeNodosBajoEl);
 		return nodo;
