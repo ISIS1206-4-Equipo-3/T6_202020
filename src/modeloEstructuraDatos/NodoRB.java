@@ -1,5 +1,6 @@
 package modeloEstructuraDatos;
 
+
 public class NodoRB {
 
 	private Object key;
@@ -8,7 +9,11 @@ public class NodoRB {
 	private NodoRB derecho;
 	private int numeroDeNodosBajoEl;
 	private boolean rojo;
-
+	public static final int RED = 0;
+	public static final int BLACK = 1;
+	
+	
+	
 	public NodoRB(Object pkey, Object value) {
 		numeroDeNodosBajoEl = 1;
 		this.key = pkey;
