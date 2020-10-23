@@ -60,6 +60,18 @@ public class NodoRB {
 		}
 		return rta;
 	}
+	public NodoRB darMayor()
+	{
+		return tieneDerecho() ? this : derecho.darMayor();
+	}
+	
+	public NodoRB darMenor()
+	{
+		return tieneIzquierdo() ? this : izquierdo.darMenor();
+	}
+
+	
+	
 //
 //	public int compareTo(Nodo o) {
 //		int hashCodeO = o.darKey().hashCode();
