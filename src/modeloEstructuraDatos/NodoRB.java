@@ -9,16 +9,18 @@ public class NodoRB {
 	private NodoRB derecho;
 	private int numeroDeNodosBajoEl;
 	private boolean rojo;
-	public static final int RED = 0;
-	public static final int BLACK = 1;
+	private boolean color;
+	public static final boolean RED = true;
+	public static final boolean BLACK = false;
 	
 	
 	
-	public NodoRB(Object pkey, Object value) {
+	public NodoRB(Object pkey, Object value, boolean color) {
 		numeroDeNodosBajoEl = 1;
 		this.key = pkey;
 		this.valor = value;
 		this.rojo = false;
+		this.color = color;
 	}
 	
 	public boolean esRojo () {return rojo;}
