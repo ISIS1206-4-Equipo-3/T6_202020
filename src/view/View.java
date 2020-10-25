@@ -11,6 +11,7 @@ public class View {
 	
 	public void printMenu()
 	{
+		System.out.println("-----------------------------------------------------------------\n");
 		System.out.println("1. Conocer los accidentes en una fecha (G-LAB REQ1)");
 		System.out.println("2. Conocer los accidentes anteriores a una fecha(I REQ2)");
 		System.out.println("3. Conocer los accidentes en un rango de fechas(I REQ3)");
@@ -26,6 +27,11 @@ public class View {
 		
 	}
 
+	public void printError(String mensajeDeError) {
+
+		System.out.println("\n++CAUTION: " + mensajeDeError+ "\n");
+	}
+	
 	public void printMessage(String mensaje) {
 
 		System.out.println(mensaje);

@@ -36,18 +36,27 @@ public class Controlador {
 				switch(opcion) {
 				case 1:
 					view.printMessage("Escriba la fecha en la que desea conocer los accidentes");
-					String fecha = lectura.nextLine();
+					String fechareq1 = lectura.nextLine();
 					try
 					{
-						System.out.println(modelo.conocerAccidentesDeUnaFecha(fecha));
+						view.printMessage(modelo.conocerAccidentesDeUnaFecha(fechareq1));
 					}
 					catch (Exception e)
 					{
-						System.out.println("No se uso el formato adecuado, por favor usar el formato AAAA-MM-DD.");
+						view.printError("No se uso el formato adecuado, por favor usar el formato AAAA-MM-DD.");
 					}
 					break;
 				case 2:
-					view.printMessage("Requerimiento aun no realizado."); //ELIMINAR AL REALIZAR REQUERIMIENTO
+					view.printMessage("Escriba la fecha hasta donde desea conocer los accidentes");
+					String fechareq2 = lectura.nextLine();
+					try
+					{
+						view.printMessage(modelo.conocerLosAccidentesAUnaFechaREQ2(fechareq2));
+					}
+					catch (Exception e)
+					{
+						view.printError("No se uso el formato adecuado, por favor usar el formato AAAA-MM-DD.");
+					}
 					break;
 				case 3:
 					view.printMessage("Requerimiento aun no realizado."); //ELIMINAR AL REALIZAR REQUERIMIENTO
@@ -56,7 +65,18 @@ public class Controlador {
 					view.printMessage("Requerimiento aun no realizado."); //ELIMINAR AL REALIZAR REQUERIMIENTO
 					break;
 				case 5:
-					view.printMessage("Requerimiento aun no realizado."); //ELIMINAR AL REALIZAR REQUERIMIENTO
+					view.printMessage("Escriba la hora inicial desde donde desea conocer los accidentes");
+					String hora1req5 = lectura.nextLine();
+					view.printMessage("Escriba la hora final hasta donde desea conocer los accidentes");
+					String hora2req5 = lectura.nextLine();
+					try
+					{
+						view.printMessage(modelo.conocerAccidentesRangoDeHorasREQ5(hora1req5,hora2req5));
+					}
+					catch (Exception e)
+					{
+						view.printError("No se uso el formato adecuado, por favor usar el formato AAAA-MM-DD.");
+					}
 					break;
 				case 6:
 					view.printMessage("Requerimiento aun no realizado."); //ELIMINAR AL REALIZAR REQUERIMIENTO
@@ -65,7 +85,7 @@ public class Controlador {
 					view.printMessage("Requerimiento aun no realizado."); //ELIMINAR AL REALIZAR REQUERIMIENTO
 					break;
 				case 8:
-					view.printInformacionDeCreadores(); //ELIMINAR AL REALIZAR REQUERIMIENTO
+					view.printInformacionDeCreadores(); 
 					break;
 				case 9:
 					view.printCambiarDatosACargar();
@@ -77,7 +97,8 @@ public class Controlador {
 						break;
 					case 2:
 						modelo.RUTA_DATOS_PRINCIPALES = "./data/large/US_Accidents_Dec19.csv";
-						view.printMessage("\nSe han establecido los datos grandes para cargar.\n");
+						view.printMessage("\nSe han establecido los datos grandes para cargar");
+						view.printMessage("Recuerde volver a cargar los datos (OPC.10).\n");
 						break;
 					default:
 						view.printErrorConRangoDeEntrada();
@@ -91,7 +112,6 @@ public class Controlador {
 					acabar=true;
 					view.printDespedida();
 					break;
-				
 				}
 
 			}catch (Exception e) {

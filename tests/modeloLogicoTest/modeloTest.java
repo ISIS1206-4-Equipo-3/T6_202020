@@ -24,7 +24,7 @@ public class modeloTest {
 	public void testCargarDatosPorFechaInicial() {
 		setUp1();
 		assertNotNull(modelo.tabla);
-
+		
 	}
 
 	@Test
