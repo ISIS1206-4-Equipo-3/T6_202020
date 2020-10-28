@@ -105,11 +105,16 @@ public class Modelo {
 
 	public String conocerAccidentesDeUnaFecha(String fecha) throws Exception
 	{
+		
 		if(tabla ==null) return "\n++CAUTION: Es necesario cargar primero los datos (Opcion 10)\n";
-		DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String fI = fecha + " 00:00:00";
+		String fF = fecha + " 23:59:59";
 		Date fechaInicial = null;
-		fechaInicial = formato.parse(fecha);
-		ArrayList accidentes = (ArrayList) tabla.valuesInRange(fechaInicial, fechaInicial);
+		Date fechaFinal = null;
+		fechaInicial = formato.parse(fI);
+		fechaFinal = formato.parse(fF);
+		ArrayList accidentes = (ArrayList) tabla.valuesInRange(fechaInicial, fechaFinal);
 		if(accidentes == null)
 		{
 			return "No existen accidentes en esta fecha";
@@ -250,7 +255,9 @@ public class Modelo {
 				e.printStackTrace();
 				valorAnterior = 0; 
 			}
-			if(valorAnterior != 0) tablahash.remove(key);
+			try {
+				if(valorAnterior != 0) tablahash.remove(key);
+			}catch (Exception e) {}
 			tablahash.put(key, valorAnterior+1);
 			if(valorAnterior+1>mayoresAccidentesDeFecha) mayoresAccidentesDeFecha=valorAnterior+1;
 		}

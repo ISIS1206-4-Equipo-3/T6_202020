@@ -55,6 +55,7 @@ public class Controlador {
 					}
 					catch (Exception e)
 					{
+						e.printStackTrace();
 						view.printError("No se uso el formato adecuado, por favor usar el formato AAAA-MM-DD.");
 					}
 					break;
