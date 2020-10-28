@@ -143,6 +143,70 @@ public class Modelo {
 
 
 	}
+	public String conocerLosAccidentesEnRangoFechasREQ3(String fecha1, String fecha2) throws ParseException
+	{
+		long startTime = System.nanoTime();
+		if(tabla ==null) {
+			vista.printError("Es necesario cargar primero los datos (Opcion 10)");
+			return null;
+		}
+		
+		DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+		Date fechaInicial =null;
+		Date fechaFinal = null;
+		fechaInicial = formato.parse(fecha1);
+		fechaFinal = formato.parse(fecha2);
+		
+		if(fechaMinima.compareTo(fechaInicial)>0) {
+			vista.printError("No puede escoger una fecha antes de "+ convertirDateAFormato(fechaMinima, true));
+			return null;
+		}
+		
+		ArrayList accidentes = (ArrayList) tabla.valuesInRange(fechaInicial, fechaFinal);
+		if(accidentes == null)
+		{
+			vista.printError("No existen accidentes entre estas fechas");
+			return null;
+		}
+		int contador1 =0;
+		int contador2 =0;
+		int contador3 =0;
+		int contador4 =0;
+		for(int i =0; i < accidentes.size(); i++)
+		{
+			Accidente accidente = (Accidente)accidentes.get(i);
+			if(accidente.getSeveridad()==1)
+			{
+				contador1++;
+			}
+			else if(accidente.getSeveridad()==2)
+			{
+				contador2++;
+			}
+			else if(accidente.getSeveridad()==3)
+			{
+				contador3++;
+			}
+			else
+			{
+				contador4++;
+			}
+		}
+		long endTime = System.nanoTime();
+		int resp = contador1;
+		int num = 1;
+		if(resp<contador2)
+			resp = contador2; num =2;
+		if(resp<contador3)
+			resp = contador3; num = 3;
+		if(resp<contador4)
+			resp = contador4; num = 4;
+		
+		return "\nSe han registrado " + accidentes.size() + " accidentes entre la fecha " + fecha1 + " y la fecha " + fecha2 + 
+				".\n La severidad mas comun entre los accidentes de este rango de fechas fue la " + num + " con " + resp + " ocurrencias.\n" + 
+		"Tiempo que tardo el requerimiento " + (endTime-startTime)/1e6 + " ms \n\n";
+		
+	}
 	
 	public String conocerLosAccidentesAUnaFechaREQ2(String fecha) throws ParseException {
 		long startTime = System.nanoTime();
