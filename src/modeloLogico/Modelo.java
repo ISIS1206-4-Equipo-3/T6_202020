@@ -107,8 +107,9 @@ public class Modelo {
 	{
 		if(tabla ==null) return "\n++CAUTION: Es necesario cargar primero los datos (Opcion 10)\n";
 		DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-		Date fechaInicial = formato.parse(fecha);
-		ArrayList accidentes = (ArrayList) tabla.get(fechaInicial);
+		Date fechaInicial = null;
+		fechaInicial = formato.parse(fecha);
+		ArrayList accidentes = (ArrayList) tabla.valuesInRange(fechaInicial, fechaInicial);
 		if(accidentes == null)
 		{
 			return "No existen accidentes en esta fecha";
@@ -208,6 +209,7 @@ public class Modelo {
 		
 	}
 	
+	
 	public String conocerLosAccidentesAUnaFechaREQ2(String fecha) throws ParseException {
 		long startTime = System.nanoTime();
 		if(tabla ==null) {
@@ -246,7 +248,7 @@ public class Modelo {
 				if (valorAnterior ==null) valorAnterior = 0;
 			} catch (Exception e) {
 				e.printStackTrace();
-				valorAnterior = 0;
+				valorAnterior = 0; 
 			}
 			if(valorAnterior != 0) tablahash.remove(key);
 			tablahash.put(key, valorAnterior+1);
@@ -261,7 +263,7 @@ public class Modelo {
 		"Tiempo que tardo la carga de datos: " + (endTime-startTime)/1e6 + " ms \n\n";
 	}
 	
-	private String convertirDateAFormato (Date fechaAConvertir , boolean conLineas) {
+	public String convertirDateAFormato (Date fechaAConvertir , boolean conLineas) {
 		if(!conLineas) return "" + (fechaAConvertir.getYear()+1900) + (fechaAConvertir.getMonth()+1) + fechaAConvertir.getDate();
 		return "" + (fechaAConvertir.getYear()+1900) + "-" + (fechaAConvertir.getMonth()+1) + "-" + fechaAConvertir.getDate();
 	
@@ -411,6 +413,30 @@ public class Modelo {
 	private String errorFormatoDeHoras() {
 		vista.printError("Las horas deben seguir el fomrato HH:mm y el rango 00:00-23:59");
 		return null;
+	}
+	public Date getFechaMinima() {
+		return fechaMinima;
+	}
+
+
+	public void setFechaMinima(Date fechaMinima) {
+		this.fechaMinima = fechaMinima;
+	}
+
+
+	public Date getFechaMaxima() {
+		return fechaMaxima;
+	}
+
+
+	public void setFechaMaxima(Date fechaMaxima) {
+		this.fechaMaxima = fechaMaxima;
+	}
+
+
+	public int darCantidadDeAccidentesCargados()
+	{
+		return cantidadDeAccidentesCargados;
 	}
 	
 }

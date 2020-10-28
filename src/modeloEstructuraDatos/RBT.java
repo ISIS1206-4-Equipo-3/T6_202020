@@ -30,7 +30,7 @@ public class RBT<K extends Comparable<K>, V> implements TablaSimbolosOrdenada<K,
 		if (resultadoComparacion < 0) return get(nodo.darIzquierdo(), key); 
 		else if (resultadoComparacion > 0) return get(nodo.darDerecho(), key); 
 		else{ return (V) nodo.darValor();}
-	}
+	} 
 
 	@Override
 	public int getHeight(K key) {

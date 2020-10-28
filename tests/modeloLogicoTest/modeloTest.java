@@ -2,6 +2,8 @@ package modeloLogicoTest;
 
 import static org.junit.Assert.*;
 
+import java.text.ParseException;
+
 import org.junit.Test;
 
 import modeloLogico.Modelo;
@@ -14,7 +16,7 @@ public class modeloTest {
 	public void setUp1()
 	{
 		modelo = new Modelo();
-		modelo.cargarDatosPorFechaInicial(modelo.RUTA_DATOS_PRINCIPALES);
+		modelo.cargarDatosPorFechaInicial("./data/small/us_accidents_small.csv");
 
 
 	}
@@ -31,7 +33,7 @@ public class modeloTest {
 	public void testConocerAccidentesDeUnaFecha() {
 		setUp1();		
 		try {
-			assertNotEquals("No existen accidentes en esta fecha", modelo.conocerAccidentesDeUnaFecha("2016-02-29"));
+			assertNotEquals("No existen accidentes en esta fecha", modelo.conocerAccidentesDeUnaFecha("2016-06-23"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -43,4 +45,75 @@ public class modeloTest {
 			
 		}
 	}
+	@Test
+	public void testConocerLosAccidentesEnUnRangoDeHoras()
+	{
+		setUp1();
+		assertNull(modelo.conocerAccidentesRangoDeHorasREQ5("24:00", "23:59"));
+	}
+	@Test
+	public void testConocerLosAccidentesEnRangoFechasREQ3()
+	{
+		setUp1();
+		String fecha1 = "2016-02-09";
+		String fecha2 = "2016-06-23";
+		try
+		{
+		String resp = modelo.conocerLosAccidentesEnRangoFechasREQ3(fecha2, "2016-06-24");
+		assertTrue(resp.startsWith("\nSe han registrado " + 38));
+		}
+		catch(Exception e)
+		{
+			fail();
+		}	
+		
+		
+	
+	}
+	@Test
+	public void testConocerLosAccidentesAUnaFechaREQ2()
+	{
+		setUp1();
+		try {
+			String resp = modelo.conocerLosAccidentesAUnaFechaREQ2("2016-06-24");
+			assertTrue(resp.startsWith("\nSe han registrado " + modelo.darCantidadDeAccidentesCargados()));
+		} catch (ParseException e) {
+			fail();
+		}
+		try {
+			modelo.conocerLosAccidentesAUnaFechaREQ2("Hola");
+			fail();
+		} catch (ParseException e) {
+			
+		}
+		try {
+			String resp = modelo.conocerLosAccidentesAUnaFechaREQ2("2016-02-08");
+			assertEquals(null, resp);
+		} catch (ParseException e) {
+			
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -32,7 +32,7 @@ public class Nodo {
 	public void setIzquierdo (Nodo pIzquierdo) {izquierdo = pIzquierdo;}
 	
 	public Nodo darDerecho() {return derecho;}
-	
+	 
 	public void setDerecho (Nodo pDerecho) {derecho = pDerecho;}
 	
 	public boolean tieneIzquierdo () {
