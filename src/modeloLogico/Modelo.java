@@ -164,8 +164,11 @@ public class Modelo {
 		Date fechaFinal = null;
 		fechaInicial = formato.parse(fecha1);
 		fechaFinal = formato.parse(fecha2);
+		Date comparacion = fechaInicial;
+		comparacion.setHours(23);
+		comparacion.setMinutes(59);
 
-		if(fechaMinima.compareTo(fechaInicial)>0) {
+		if(fechaMinima.compareTo(comparacion)>0 ) {
 			vista.printError("No puede escoger una fecha antes de "+ convertirDateAFormato(fechaMinima, true));
 			return null;
 		}
