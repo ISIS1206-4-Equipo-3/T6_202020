@@ -445,5 +445,71 @@ public class Modelo {
 	{
 		return cantidadDeAccidentesCargados;
 	}
+
+
+	public String conocerEstadoConMasAccidentesEnRangoDeFechas(String primeraFecha, String segundaFecha) throws ParseException
+	{
+		long startTime = System.nanoTime();
+		if(tabla ==null) {
+			vista.printError("Es necesario cargar primero los datos (Opcion 10)");
+			return null;
+		}
+		
+		DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+		Date fechaInicialEstadoMas =null;
+		Date fechaFinalEstadoMas = null;
+		fechaInicialEstadoMas = formato.parse(primeraFecha);
+		fechaFinalEstadoMas = formato.parse(segundaFecha);
+		
+		if(fechaMinima.compareTo(fechaInicialEstadoMas)>0) {
+			vista.printError("No puede escoger una fecha antes de "+ convertirDateAFormato(fechaMinima, true));
+			return null;
+		}
+		
+		ArrayList accidentes = (ArrayList) tabla.valuesInRange(fechaInicialEstadoMas, fechaFinalEstadoMas);
+		if(accidentes == null)
+		{
+			vista.printError("No existen accidentes entre estas fechas");
+			return null;
+		}
+		int contador1 = 0;
+		int contador2 = 0;
+		int contador3 = 0;
+		int contador4 = 0;
+		for(int i =0; i < accidentes.size(); i++)
+		{
+			Accidente accidente = (Accidente)accidentes.get(i);
+			if(accidente.getSeveridad()==1)
+			{
+				contador1++;
+			}
+			else if(accidente.getSeveridad()==2)
+			{
+				contador2++;
+			}
+			else if(accidente.getSeveridad()==3)
+			{
+				contador3++;
+			}
+			else
+			{
+				contador4++;
+			}
+		}
+		long endTime = System.nanoTime();
+		int resp = contador1;
+		int num = 1;
+		if(resp<contador2)
+			resp = contador2; num =2;
+		if(resp<contador3)
+			resp = contador3; num = 3;
+		if(resp<contador4)
+			resp = contador4; num = 4;
+		
+		return "\nSe han registrado " + accidentes.size() + " accidentes entre la fecha " + primeraFecha + " y la fecha " + segundaFecha + 
+				".\n La severidad mas comun entre los accidentes de este rango de fechas fue la " + num + " con " + resp + " ocurrencias.\n" + 
+		"Tiempo que tardo el requerimiento " + (endTime-startTime)/1e6 + " ms \n\n";
+		
+	}
 	
 }

@@ -74,7 +74,18 @@ public class Controlador {
 					}
 					break;
 				case 4:
-					view.printMessage("Requerimiento aun no realizado."); //ELIMINAR AL REALIZAR REQUERIMIENTO
+					view.printMessage("Escriba la fecha inicial del rango de fechas en el que quiere conocer el estado con más accidentes reportados"); 
+					String fechaInicialEstadoMas = lectura.nextLine();
+					view.printMessage("Escriba la fecha final del rango de fechas en el que quiere conocer el estado con más accidentes reportados");
+					String fechaFinalEstadoMas = lectura.nextLine();
+					try
+					{
+						view.printMessage(modelo.conocerEstadoConMasAccidentesEnRangoDeFechas(fechaInicialEstadoMas, fechaFinalEstadoMas));
+					}
+					catch (Exception e)
+					{
+						view.printError("No se uso el formato adecuado, por favor usar el formato AAAA-MM-DD.");
+					}
 					break;
 				case 5:
 					view.printMessage("Escriba la hora inicial desde donde desea conocer los accidentes");
