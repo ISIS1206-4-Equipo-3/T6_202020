@@ -92,7 +92,27 @@ public class modeloTest {
 		} catch (ParseException e) {
 			
 		}
+		
+		
 	}
+		
+		@Test
+		public void testconocerEstadoConMasAccidentesEnRangoDeFechas() {
+			setUp1();		
+			try {
+				assertNotEquals("No existen accidentes en esta fecha", modelo.conocerEstadoConMasAccidentesEnRangoDeFechas("2016-5-5","2016-10-10"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try {
+				modelo.conocerEstadoConMasAccidentesEnRangoDeFechas("Prueba","Prueba");
+				fail();
+			}catch (Exception e) {
+				
+			}
+		}
+	
 	
 	
 	
