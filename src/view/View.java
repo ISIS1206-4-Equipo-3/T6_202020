@@ -17,7 +17,7 @@ public class View {
 		System.out.println("3. Conocer los accidentes en un rango de fechas(I REQ3)");
 		System.out.println("4. Conocer el estado con mas accidentes (I REQ4)");
 		System.out.println("5. Conocer los accidentes por rango de horas (G REQ5)");
-		System.out.println("6. Conocer la zona geográfica mas accidentada (B REQ1)");
+		System.out.println("6. Conocer la zona geografica mas accidentada (B REQ1)");
 		System.out.println("7. Usar el conjunto completo de datos (B REQ1)");
 		System.out.println("8. Informacion de creadores");
 		System.out.println("9. Cambiar datos a cargar");
