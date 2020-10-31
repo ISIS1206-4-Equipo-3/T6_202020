@@ -480,36 +480,8 @@ public class Modelo {
 			vista.printError("No existen accidentes entre estas fechas");
 			return null;
 		}
-
-		//		int contadorEstadoNuevo=0;
-		//		int contadorEstadoViejo=0;
-		//		String estadoMasAccidentes="";
-		//		for(int i =0; i < accidentes.size(); i++)
-		//		{	
-		//
-		//			Accidente accidente = (Accidente)accidentes.get(i);
-		//			e = (String)accidente.getEstado();
-		//			estados.add(e);
-		//		}	
-		//
-		//		for (int i= 0; i < estados.size(); i++) {
-		//			for (int y = 1; y < estados.size(); y++) {
-		//				if (estados.get(i).equals(estados.get(y)))
-		//					contadorEstadoNuevo +=1;
-		//			}
-		//			if(contadorEstadoViejo<contadorEstadoNuevo){
-		//				contadorEstadoViejo=contadorEstadoNuevo;
-		//				estadoMasAccidentes = estados.get(i);
-		//			}
-		//			contadorEstadoNuevo = 0;
-		//		}
-		//		
-
-
-		ArrayList estados2 = new ArrayList<String>();
+	ArrayList estados2 = new ArrayList<String>();
 		TablaHashSeparateChaining<String, Integer> tablahashEstados = new TablaHashSeparateChaining<String, Integer>(accidentes.size()/50);
-
-
 		for(int i =0; i < accidentes.size(); i++)
 		{
 			Accidente accidente = (Accidente)accidentes.get(i);
@@ -585,28 +557,52 @@ public class Modelo {
 		double longitudPuntoCentral = Double.parseDouble(longi);
 		double latitudPuntoCentral = Double.parseDouble(lat);
 		int radio = Integer.parseInt(rad);
+		double distancia = 0;
 		if(tabla ==null) {
 			vista.printError("Es necesario cargar primero los datos (Opcion 10)");
 			return null;
 		}
-
-
 		ArrayList accidentes = (ArrayList) tabla.valuesInRange(fechaMinima, fechaMaxima);
+		ArrayList accidentesEnLaZona = new ArrayList<Accidente>();
 		if(accidentes == null)
 		{
 			vista.printError("No existen accidentes entre estas fechas");
 			return null;
 		}
+		double accidenteLat = 0.0;
+		double accidenteLong = 0.0;
+		for (int i = 0; i < accidentes.size(); i++) {
+			Accidente accidente = (Accidente) accidentes.get(i);
+			 accidenteLat = accidente.getLatitud();
+			 accidenteLong = accidente.getLongitud();
+			
+			
+		
+			longitudPuntoCentral = Math.toRadians(longitudPuntoCentral); 
+			accidenteLong = Math.toRadians(accidenteLong); 
+			latitudPuntoCentral = Math.toRadians(latitudPuntoCentral); 
+			accidenteLat = Math.toRadians(accidenteLat); 
+	  
 
+	        double distancialong = accidenteLong - longitudPuntoCentral;  
+	        double distancialatitud = accidenteLat - latitudPuntoCentral; 
+	        double a = Math.pow(Math.sin(distancialatitud / 2), 2) 
+	                 + Math.cos(latitudPuntoCentral) * Math.cos(accidenteLat) 
+	                 * Math.pow(Math.sin(distancialong / 2),2); 
+	              
+	        double c = 2 * Math.asin(Math.sqrt(a)); 
 
+	        double r = 6371; 
+	  
 
-
-
-
-
-
-
-		return "";
+	       distancia = (c * r); 
+	       
+	       if (distancia<=radio) {
+			accidentesEnLaZona.add(accidente);
+		}
+		}
+	        
+		return "En la zona seleccionada se han presentado " + accidentesEnLaZona.size() +" accidentes";
 	}
 
 }

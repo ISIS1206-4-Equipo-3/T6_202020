@@ -106,7 +106,7 @@ public class Controlador {
 					String longitud = lectura.nextLine();
 					view.printMessage("Escriba la latitud inicial que se tomará para el punto central");
 					String latitud = lectura.nextLine();
-					view.printMessage("Escriba el radio en el que quiere buscar");
+					view.printMessage("Escriba el radio en el que quiere buscar en kilometros");
 					String radio = lectura.nextLine();
 					try
 					{
@@ -114,6 +114,7 @@ public class Controlador {
 					}
 					catch (Exception e)
 					{
+						e.printStackTrace();
 						view.printError("No se uso el formato adecuado");
 					}
 					break;
