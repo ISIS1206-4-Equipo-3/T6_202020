@@ -102,7 +102,20 @@ public class Controlador {
 					}
 					break;
 				case 6:
-					view.printMessage("Requerimiento aun no realizado."); //ELIMINAR AL REALIZAR REQUERIMIENTO
+					view.printMessage("Escriba la longitud inicial que se tomará para el punto central");
+					String longitud = lectura.nextLine();
+					view.printMessage("Escriba la latitud inicial que se tomará para el punto central");
+					String latitud = lectura.nextLine();
+					view.printMessage("Escriba el radio en el que quiere buscar");
+					String radio = lectura.nextLine();
+					try
+					{
+						view.printMessage(modelo.conocerZonaMasAccidentada(longitud,latitud,radio));
+					}
+					catch (Exception e)
+					{
+						view.printError("No se uso el formato adecuado");
+					}
 					break;
 				case 7:
 					view.printMessage("Para usar el conjunto completo selecciona la opcion 2 al momento de cargar datos :)"); //ELIMINAR AL REALIZAR REQUERIMIENTO

@@ -15,6 +15,7 @@ import com.opencsv.CSVReaderBuilder;
 
 import modeloEstructuraDatos.Accidente;
 import modeloEstructuraDatos.BST;
+import modeloEstructuraDatos.NodoTH;
 import modeloEstructuraDatos.RBT;
 import modeloEstructuraDatos.TablaHashSeparateChaining;
 import view.View;
@@ -69,7 +70,9 @@ public class Modelo {
 					int severidad = Integer.parseInt(linea[3]);
 					String estado = linea[17];
 					String ciudad = linea[15];
-					Accidente accidente = new Accidente(fechaInicial, id, severidad, ciudad, estado);
+					double longitud = Double.parseDouble(linea[7]);
+					double latitud = Double.parseDouble(linea[6]);
+					Accidente accidente = new Accidente(fechaInicial, id, severidad, ciudad, estado, longitud, latitud);
 					tabla.put(fechaInicial, accidente);
 					++cantidadDeAccidentesCargados;
 				}
@@ -164,11 +167,8 @@ public class Modelo {
 		Date fechaFinal = null;
 		fechaInicial = formato.parse(fecha1);
 		fechaFinal = formato.parse(fecha2);
-		Date comparacion = fechaInicial;
-		comparacion.setHours(23);
-		comparacion.setMinutes(59);
 
-		if(fechaMinima.compareTo(comparacion)>0 ) {
+		if(fechaMinima.compareTo(fechaInicial)>0) {
 			vista.printError("No puede escoger una fecha antes de "+ convertirDateAFormato(fechaMinima, true));
 			return null;
 		}
@@ -480,33 +480,73 @@ public class Modelo {
 			vista.printError("No existen accidentes entre estas fechas");
 			return null;
 		}
-		
-		int contadorEstadoNuevo=0;
-		int contadorEstadoViejo=0;
-		String estadoMasAccidentes="";
+
+		//		int contadorEstadoNuevo=0;
+		//		int contadorEstadoViejo=0;
+		//		String estadoMasAccidentes="";
+		//		for(int i =0; i < accidentes.size(); i++)
+		//		{	
+		//
+		//			Accidente accidente = (Accidente)accidentes.get(i);
+		//			e = (String)accidente.getEstado();
+		//			estados.add(e);
+		//		}	
+		//
+		//		for (int i= 0; i < estados.size(); i++) {
+		//			for (int y = 1; y < estados.size(); y++) {
+		//				if (estados.get(i).equals(estados.get(y)))
+		//					contadorEstadoNuevo +=1;
+		//			}
+		//			if(contadorEstadoViejo<contadorEstadoNuevo){
+		//				contadorEstadoViejo=contadorEstadoNuevo;
+		//				estadoMasAccidentes = estados.get(i);
+		//			}
+		//			contadorEstadoNuevo = 0;
+		//		}
+		//		
+
+
+		ArrayList estados2 = new ArrayList<String>();
+		TablaHashSeparateChaining<String, Integer> tablahashEstados = new TablaHashSeparateChaining<String, Integer>(accidentes.size()/50);
+
+
 		for(int i =0; i < accidentes.size(); i++)
-		{	
-
+		{
 			Accidente accidente = (Accidente)accidentes.get(i);
-			e = (String)accidente.getEstado();
-			estados.add(e);
-		}	
+			String key = accidente.getEstado();
+			if (estados2.size()==0) {
+				estados2.add(key);
+			}
+			for (int j = 0; j < estados2.size() && estados2.size()<50; j++) {
+				if (!estados2.get(j).equals(key)) {
+					estados2.add(key);
+					j=estados2.size();
+				}
+			}
 
-		for (int i= 0; i < estados.size(); i++) {
-			for (int y = 1; y < estados.size(); y++) {
-				if (estados.get(i).equals(estados.get(y)))
-					contadorEstadoNuevo +=1;
-			}
-			if(contadorEstadoViejo<contadorEstadoNuevo){
-				contadorEstadoViejo=contadorEstadoNuevo;
-				estadoMasAccidentes = estados.get(i);
-			}
-			contadorEstadoNuevo = 0;
+			tablahashEstados.put(key, 1);	
 		}
 
-		long endTime = System.nanoTime();
-		
-		
+		int numeroAccidentes = 0;
+		String accidenteMas ="";
+		for (int i = 0; i < estados2.size(); i++) {
+
+			NodoTH nodo = tablahashEstados.getNodoTH((String) estados2.get(i));
+			int contador = 0;
+
+
+			while (nodo!=null) {
+				nodo = nodo.darSiguiente();
+				contador++;
+
+			}
+
+			if (contador>numeroAccidentes) {
+				numeroAccidentes=contador;
+				accidenteMas =(String) estados2.get(i);
+			}
+		}
+
 		TablaHashSeparateChaining<String, Integer> tablahash = new TablaHashSeparateChaining<String, Integer>(accidentes.size()/5);
 		Integer mayoresAccidentesEnUnaFecha = 0;
 
@@ -530,11 +570,43 @@ public class Modelo {
 			if(valorAnterior+1>mayoresAccidentesEnUnaFecha) mayoresAccidentesEnUnaFecha=valorAnterior+1;
 		}
 		String fechaConMayorCantidadDeAccidentes = tablahash.darLlaveMayorElemento();
-		
-return "\nSe han registrado " + accidentes.size() + " accidentes entre la fecha " + primeraFecha + " y la fecha " + segundaFecha + 
-	".\nEl estado con mayor cantidad de accidentes en este rango de fechas fue " + estadoMasAccidentes +" con un total de " + contadorEstadoViejo  +" accidentes. \n" 
-	+"La fecha en la que se presentaron más accidentes fue "+ fechaConMayorCantidadDeAccidentes+ "\n"+
-	"Tiempo que tardo el requerimiento " + (endTime-startTime)/1e6 + " ms \n\n";
+		long endTime = System.nanoTime();
+
+
+		return "\nSe han registrado " + accidentes.size() + " accidentes entre la fecha " + primeraFecha + " y la fecha " + segundaFecha + 
+				".\nEl estado con mayor cantidad de accidentes en este rango de fechas fue " + accidenteMas +" con un total de " + numeroAccidentes  +" accidentes. \n" 
+				+"La fecha en la que se presentaron más accidentes fue "+ fechaConMayorCantidadDeAccidentes+ "\n"+
+				"Tiempo que tardo el requerimiento " + (endTime-startTime)/1e6 + " ms \n\n";
+	}
+
+
+	public String conocerZonaMasAccidentada(String longi, String lat, String rad) {
+		long startTime = System.nanoTime();
+		double longitudPuntoCentral = Double.parseDouble(longi);
+		double latitudPuntoCentral = Double.parseDouble(lat);
+		int radio = Integer.parseInt(rad);
+		if(tabla ==null) {
+			vista.printError("Es necesario cargar primero los datos (Opcion 10)");
+			return null;
+		}
+
+
+		ArrayList accidentes = (ArrayList) tabla.valuesInRange(fechaMinima, fechaMaxima);
+		if(accidentes == null)
+		{
+			vista.printError("No existen accidentes entre estas fechas");
+			return null;
+		}
+
+
+
+
+
+
+
+
+
+		return "";
 	}
 
 }

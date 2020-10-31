@@ -11,13 +11,19 @@ public class Accidente {
 	private String ciudad;
 	
 	private String estado;
+	
+	private double longitud;
+	
+	private double latitud;
 
-	public Accidente(Date fechaInicial, String id, int severidad, String ciudad, String estado ) {
+	public Accidente(Date fechaInicial, String id, int severidad, String ciudad, String estado, double longitud, double latitud ) {
 		this.fechaInicial = fechaInicial;
 		this.id = id;
 		this.severidad = severidad;
 		this.ciudad = ciudad;
 		this.estado = estado;
+		this.longitud = longitud;
+		this.latitud = latitud;
 		
 	}
 
@@ -27,7 +33,9 @@ public class Accidente {
 		System.out.println("Fecha inicial: " + (fechaInicial.getYear()+1900) + "-" + (fechaInicial.getMonth()+1) + "-" + fechaInicial.getDate());
 		System.out.println("Severidad: "+ severidad);
 		System.out.println("Ciudad: "+ ciudad );
-		System.out.println("Estado: "+ estado+ "\n");
+		System.out.println("Estado: "+ estado);
+	
+		
 		
 	}
 	public Date getFechaInicial() {
@@ -68,6 +76,20 @@ public class Accidente {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	 
-
+	
+	public double getLongitud() {
+		return longitud;
+	}
+	public void setLongitud () {
+		this.longitud = longitud;
+	}
+	
+	public double getLatitud() {
+		return latitud;
+	}
+	
+	public void setLatitud() {
+		this.latitud = latitud;
+	}
+	
 }
