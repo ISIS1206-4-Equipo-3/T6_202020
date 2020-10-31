@@ -575,30 +575,11 @@ public class Modelo {
 			Accidente accidente = (Accidente) accidentes.get(i);
 			 accidenteLat = accidente.getLatitud();
 			 accidenteLong = accidente.getLongitud();
-						
-		
-//			longitudPuntoCentral = Math.toRadians(longitudPuntoCentral); 
-//			accidenteLong = Math.toRadians(accidenteLong); 
-//			latitudPuntoCentral = Math.toRadians(latitudPuntoCentral); 
-//			accidenteLat = Math.toRadians(accidenteLat); 
-			
-			
-	  
 
 	        double distancialong = accidenteLong - longitudPuntoCentral;  
 	        double distancialatitud = accidenteLat - latitudPuntoCentral; 
 	        double hipPrueba = Math.sqrt((distancialong*distancialong) + (distancialatitud*distancialatitud));
-//	        double a = Math.pow(Math.sin(distancialatitud / 2), 2) 
-//	                 + Math.cos(latitudPuntoCentral) * Math.cos(accidenteLat) 
-//	                 * Math.pow(Math.sin(distancialong / 2),2); 
-	              
-//	        double c = 2 * Math.asin(Math.sqrt(a)); 
-
-//	        double r = 6371; 
-	  
-
-//	       distancia = (c * r); 
-//	       
+	       
 	       if (hipPrueba<=radio) {
 			accidentesEnLaZona.add(accidente);
 		}
