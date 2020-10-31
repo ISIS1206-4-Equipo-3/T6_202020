@@ -114,9 +114,19 @@ public class modeloTest {
 		}
 	
 	
+		@Test
+		public void testconocerZonaMasAccidentada() {
+			setUp1();		
+			try {
+				assertNotNull("No existen accidentes en esta fecha", modelo.conocerZonaMasAccidentada("-84.194901","39.770382","20"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		
+		}
 	
-	
-	
+		 
 	
 	
 	

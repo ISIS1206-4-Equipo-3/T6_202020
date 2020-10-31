@@ -594,7 +594,7 @@ public class Modelo {
 	              
 //	        double c = 2 * Math.asin(Math.sqrt(a)); 
 
-	        double r = 6371; 
+//	        double r = 6371; 
 	  
 
 //	       distancia = (c * r); 
