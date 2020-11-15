@@ -12,15 +12,15 @@ public class View {
 	public void printMenu()
 	{
 		System.out.println("-----------------------------------------------------------------\n");
-		System.out.println("1. Conocer los accidentes en una fecha (G-LAB REQ1)");
-		System.out.println("2. Conocer los accidentes anteriores a una fecha(I REQ2)");
-		System.out.println("3. Conocer los accidentes en un rango de fechas(I REQ3)");
-		System.out.println("4. Conocer el estado con mas accidentes (I REQ4)");
-		System.out.println("5. Conocer los accidentes por rango de horas (G REQ5)");
-		System.out.println("6. Conocer la zona geografica mas accidentada (B REQ1)");
-		System.out.println("7. Usar el conjunto completo de datos (B REQ1)");
-		System.out.println("8. Informacion de creadores");
-		System.out.println("9. Cambiar datos a cargar");
+		System.out.println("1. Cantidad de cluster de Viajes (REQ. 1:G)");
+		System.out.println("2. Ruta turística Circular (REQ. 2:I)");
+		System.out.println("3. Ruta turística de menor tiempo (REQ. 3:I)");
+		System.out.println("4. Ruta turística por resistencia (REQ. 4:I)");
+		System.out.println("5. Ruta mas corta entre estaciones (Req. 5:G)");
+		System.out.println("6. Ruta de interés turístico (REQ. 6:G)");
+		System.out.println("7. Identificación de Estaciones para Publicidad (REQ. 7:B)");
+		System.out.println("8. Identificación de bicicletas para mantenimiento (REQ. 8:B)");
+		System.out.println("9. Informacion de creadores");
 		System.out.println("10. Cargar datos ");
 		System.out.println("\n0. <-----EXIT");
 		
@@ -46,11 +46,7 @@ public class View {
 		System.out.println("Universidad de los Andes - Bogota, Colombia");
 		System.out.println("Estructuras de Datos 202020_ISIS_1206_04 GRUPO 3\n");
 	}
-	
-	public void printCambiarDatosACargar() {
-		System.out.println("\n1. Cargar datos de peliculas pequenos.");
-		System.out.println("2. Cargar datos de peliculas grandes.");
-	}
+
 	
 	public void printErrorConRangoDeEntrada() {
 		// TODO Auto-generated method stub
