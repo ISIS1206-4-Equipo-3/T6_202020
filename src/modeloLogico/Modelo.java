@@ -13,8 +13,6 @@ import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
-import modeloEstructuraDatos.Accidente;
-import modeloEstructuraDatos.RBT;
 import view.View;
 
 
@@ -26,7 +24,8 @@ public class Modelo {
 	public String RUTA_DATOS_2 = "./data/201801-2-citibike-tripdata.csv";
 	
 
-	private FileReader archivo;
+	private FileReader archivo1;
+	private FileReader archivo2;
 	private CSVReader lector;
 	private int cantidadDeViajesBicicletaCargados;
 	private View view; 
@@ -39,7 +38,7 @@ public class Modelo {
 			cantidadDeViajesBicicletaCargados = 0;
 			long startTime = System.nanoTime();
 			CSVParser parser = new CSVParserBuilder().withSeparator(',').build();
-			tabla = DiGraph new <idEstacion, Viaje>();
+//			tabla = DiGraph new <idEstacion, Viaje>();   *corregir*
 			archivo1 = new FileReader(ruta1);
 			archivo2 = new FileReader(ruta2);
 			lector = new CSVReaderBuilder (archivo1).withCSVParser(parser).build();
