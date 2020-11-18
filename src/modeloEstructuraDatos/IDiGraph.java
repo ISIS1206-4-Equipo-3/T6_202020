@@ -2,7 +2,7 @@ package modeloEstructuraDatos;
 
 import java.util.List;
 
-public interface IDiGraph<K extends Comparable<K>,V extends Comparable<V>>{
+public interface IDiGraph<K extends Comparable<K>,V>{
 
 	/**
 	 * Retorna true si el vértice con id suministrado está en el grafo

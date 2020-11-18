@@ -1,47 +1,54 @@
 package modeloEstructuraDatos;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class DiGraph<K extends Comparable<K>, V extends Comparable<V>> implements IDiGraph<K, V> {
+public class DiGraph<K extends Comparable<K>, V> implements IDiGraph<K, V> {
 
 	TablaHashLinearProbing<K, V> tablaHash;
 	
 	public DiGraph () {
-		tablaHash = new TablaHashLinearProbing<K, V>(5);
+		tablaHash = new TablaHashLinearProbing<K, V>(2);
 	}
 	
 	@Override
 	public boolean containsVertex(K id) {
-		// TODO Auto-generated method stub
-		return false;
+		if (tablaHash.get(id)==null) return false;
+		return true;
 	}
 
 	@Override
 	public int numVertices() {
-		// TODO Auto-generated method stub
-		return 0;
+		return tablaHash.size();
 	}
 
 	@Override
 	public int numEdges() {
-		// TODO Auto-generated method stub
-		return 0;
+		int rta = 0;
+		ArrayList listaValores = (ArrayList) tablaHash.valueSet();
+		for (Object vertex : listaValores) {
+			Vertex act = (Vertex) vertex;
+			rta += act.outdegree();
+		}
+		return rta;
 	}
 
 	@Override
 	public void insertVertex(K id, V value) {
-		// TODO Auto-generated method stub
-		
+		tablaHash.put(id, value);
 	}
 
 	@Override
 	public void addEdge(K source, K dest, double weight) {
+		Vertex vertexsource = (Vertex) tablaHash.get(source);
+		Vertex vertexdest = (Vertex) tablaHash.get(dest);
+		if(vertexsource == null || vertexdest == null) System.out.println("OJO_EXISTIO_ERROR_EN_ADD_EDGE");
 		
 	}
 
 	@Override
 	public Vertex<K, V> getVertex(K id) {
-		// TODO Auto-generated method stub
+		if(tablaHash.get(id)!=null) return (Vertex<K, V>) tablaHash.get(id);
 		return null;
 	}
 
