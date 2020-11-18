@@ -109,9 +109,18 @@ public class Modelo {
 			ArrayList<Edge<Integer,String>> arcos = (ArrayList<Edge<Integer, String>>) graph.edges();
 			double pesoMin = Integer.MAX_VALUE;
 			double pesoMax = 0.0;
+			Edge arcoMax = null;
+			Edge arcoMin = null;
 			for (int i = 0; i < arcos.size(); i++) {
 				if (arcos.get(i).weight()<pesoMin) {
 					pesoMin = arcos.get(i).weight();
+					arcoMin = arcos.get(i);
+				}
+			}
+			for (int i = 0; i < arcos.size(); i++) {
+				if (arcos.get(i).weight()>pesoMax) {
+					pesoMax = arcos.get(i).weight();
+					arcoMax = arcos.get(i);
 				}
 			}
 			
@@ -119,7 +128,8 @@ public class Modelo {
 			System.out.println("Se cargaron: "+cantidadDeViajesBicicletaCargados+" viajes\n");
 			System.out.println("Son "+graph.vertices().size()+" estaciones\n");
 			System.out.println("Son "+ arcos.size() +" arcos entre estaciones\n");
-			System.out.println("El arco con peso mínimo es "+       +" con "+ +"vertices que conecta y su peso es "+);
+			System.out.println("El arco con peso mínimo conecta el vertice con id "+ arcoMin.getSource().getInfo() +" con el vertice con id "+ arcoMin.getDest().getInfo() + " y su peso es "+ arcoMin.weight());
+			System.out.println("El arco con peso máximo conecta el vertice con id "+ arcoMax.getSource().getInfo() +" con el vertice con id "+ arcoMax.getDest().getInfo() + " y su peso es "+ arcoMax.weight());
 			System.out.println("Tiempo que tardo la carga de datos: " + (endTime-startTime)/1e6 + " ms \n\n");
 		}
 			catch (Exception e) {
