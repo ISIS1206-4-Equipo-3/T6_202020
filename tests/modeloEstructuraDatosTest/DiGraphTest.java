@@ -1,240 +1,169 @@
 package modeloEstructuraDatosTest;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.junit.Before;
 import org.junit.Test;
 
+import modeloEstructuraDatos.DiGraph;
+import modeloEstructuraDatos.Edge;
+import modeloEstructuraDatos.Vertex;
 
 public class DiGraphTest {
-	
-	private DiGraph bst1;
-	private DiGraph bst2;
-	
+
+	private DiGraph digraph;
+	private DiGraph digraph2;
+
 	public void setUp1() {
-		bst1 = new BST<Integer, String>(null);
-		bst1.put(5, "cinco");
-		bst1.put(5, "cinco2");
-		bst1.put(3, "tres");
-		bst1.put(1, "uno");
-		bst1.put(2, "dos");
-		bst1.put(10, "diez");
-		bst1.put(8, "ocho");
-		bst1.put(9, "nueve");
-		bst1.put(6, "seis");
-		bst1.put(4, "cuatro");
-		bst1.put(7, "siete");
-		bst1.put(0, "cero");
+		digraph = new DiGraph<Integer, String>();
+		digraph.insertVertex(1, "a");
+		digraph.insertVertex(2, "b");
+		digraph.insertVertex(3, "c");
+		digraph.insertVertex(4, "d");
+		digraph.insertVertex(5, "e");
+		digraph.addEdge(1, 2, 4);
+		digraph.addEdge(1, 5, 18);
+		digraph.addEdge(2, 1, 2);
+		digraph.addEdge(2, 3, 10);
+		digraph.addEdge(3, 4, 12);
+		digraph.addEdge(4, 2, 8);
+		digraph.addEdge(5, 1, 16);
+		digraph.addEdge(5, 2, 6);
+		digraph.addEdge(5, 4, 14);
 	}
-	
+
 	public void setUp2() {
-		bst2 = new BST<String, Integer>(null);
-		bst2.put("cinco", 5);
-		bst2.put("tres", 3);
-		bst2.put( "uno", 1);
-		bst2.put("dos", 2);
-		bst2.put("diez",10);
-		bst2.put("ocho",8);
-		bst2.put( "nueve",9);
-		bst2.put( "seis",6);
-		bst2.put( "cuatro",4);
-		bst2.put( "siete",7);
-		bst2.put( "cero",0);
-	}
-	
-	public void setUp3() {
-		bst2 = new BST<String, String>(null);
-		bst2.put("cinco", "5");
-		bst2.put("tres", "3");
-		bst2.put( "uno", "1");
-		bst2.put("dos", "2");
-		bst2.put("diez","10");
-	}
-	
-	public void setUp4() {
-		bst1 = new BST<String, String>(null);
+		digraph2 = new DiGraph<Integer, String>();
+		digraph2.insertVertex(1, "a");
+		digraph2.insertVertex(2, "b");
+		digraph2.insertVertex(3, "c");
+		digraph2.insertVertex(4, "d");
+		digraph2.insertVertex(5, "e");
+		digraph2.insertVertex(6, "f");
+		digraph2.insertVertex(7, "g");
+		digraph2.insertVertex(8, "h");
+		digraph2.insertVertex(9, "i");
 	}
 
-	public void setUp5() {
-		bst2 = new BST<String, String>(null);
-		bst2.put("cinco", "5");
-		bst2.put("tres", "3");
-		bst2.put( "uno", "1");
-		bst2.put("dos", "2");
-		bst2.put("diez","10");
-		bst2.put("ocho","8");
-		bst2.put( "nueve","9");
-		bst2.put( "seis","6");
-		bst2.put( "cuatro","4");
-		bst2.put( "siete","7");
-		bst2.put( "cero","0");
-	}
-	
-	public void setUp6(){
-		
-		bst2 = new BST<Integer, String>(null);
-		bst2.put(5, "1,5");
-		bst2.put(5, "2,5");
-		bst2.put(5, "3,5");
-		bst2.put(5, "4,5");
-		bst2.put(5, "5,5");
-	}
-	
-	
-	@Test
-	public void sizeTest() {
-		setUp1();
-		assertEquals(11,bst1.size());
-		setUp3();
-		assertEquals(5,bst2.size());
-	}
-	
-	@Test
-	public void isEmptyTest() {
-		setUp4();
-		assertEquals(true,bst1.isEmpty());
-		setUp1();
-		assertEquals(false,bst1.isEmpty());
-	}
-	
-	@Test
-	public void getTest() {
-		setUp1();
-		assertEquals("ocho",bst1.get(8));
-		assertEquals("nueve",bst1.get(9));
-		assertEquals("cero",bst1.get(0));
-		assertEquals("uno",bst1.get(1));
-		assertEquals(2,((ArrayList<Object>) bst1.get(5)).size());
-		
-		setUp5();
-		assertEquals("8",bst2.get("ocho"));
-		assertEquals("9",bst2.get("nueve"));
-		assertEquals("0",bst2.get("cero"));
-		assertEquals("1",bst2.get("uno"));
-		assertEquals("5",bst2.get("cinco"));
-		
-		setUp2();
-		assertEquals(8,bst2.get("ocho"));
-		assertEquals(9,bst2.get("nueve"));
-		assertEquals(0,bst2.get("cero"));
-		assertEquals(1,bst2.get("uno"));
-		assertEquals(5,bst2.get("cinco"));
-	}
-	
-	@Test
-	public void getHeightTest() {
-		setUp1();
-		assertEquals(1,bst1.getHeight(5));
-		assertEquals(4,bst1.getHeight(6));
-		assertEquals(5,bst1.getHeight(7));
-		setUp3();
-		assertEquals(1,bst2.getHeight("cinco"));
-		assertEquals(3,bst2.getHeight("dos"));
-		assertEquals(4,bst2.getHeight("diez"));
-	}
-	
-	@Test
-	public void containsTest() {
-		setUp1();
-		assertEquals(true,bst1.contains(1));
-		assertEquals(true,bst1.contains(3));
-		assertEquals(true,bst1.contains(5));
-		assertEquals(true,bst1.contains(10));
-		assertEquals(false,bst1.contains(12));
-		assertEquals(false,bst1.contains(100));
-		assertEquals(false,bst1.contains(-1));
-		assertEquals(false,bst1.contains(30));
-	}
-	
-	@Test
-	public void heightTest() {
-		setUp1();
-		assertEquals(5,bst1.height());
-		setUp3();
-		assertEquals(4,bst2.height());
-	}
-	
-	@Test
-	public void minTest() {
-		setUp1();
-		assertEquals(0,bst1.min());
-		setUp3();
-		assertEquals("cinco",bst2.min());
-		setUp2();
-		assertEquals("cero",bst2.min());
-		setUp4();
-		assertEquals(null,bst1.min());
-	}
-	
-	@Test
-	public void maxTest() {
-		setUp1();
-		assertEquals(10,bst1.max());
-		setUp3();
-		assertEquals("uno",bst2.max());
-		setUp2();
-		assertEquals("uno",bst2.max());
-		setUp4();
-		assertEquals(null,bst1.max());
-	}
-	
-	@Test
-	public void keySetTest() {
-		setUp1();
-		assertEquals(true,bst1.keySet().contains(1));
-		assertEquals(true,bst1.keySet().contains(10));
-		assertEquals(11,bst1.keySet().size());
-		
-		setUp2();
-		assertEquals(true,bst2.keySet().contains("uno"));
-		assertEquals(true,bst2.keySet().contains("cero"));
-		assertEquals(11,bst2.keySet().size());
-		
-		setUp3();
-		assertEquals(true,bst2.keySet().contains("uno"));
-		assertEquals(true,bst2.keySet().contains("diez"));
-		assertEquals(5,bst2.keySet().size());
-		
-		setUp4();
-		assertEquals(null,bst1.keySet());
-		
-	}
-	
-	@Test
-	public void keysInRangeTest() {
-		setUp1();
-		assertEquals(true,bst1.keysInRange(3,5).contains(4));
-		assertEquals(true,bst1.keysInRange(3,5).contains(3));
-		assertEquals(false,bst1.keysInRange(3,5).contains(1));
-		assertEquals(false,bst1.keysInRange(3,5).contains(10));
-		assertEquals(false,bst1.keysInRange(3,5).contains(6));
-		assertEquals(5,bst1.keysInRange(3,7).size());
-	}
-	
-	@Test
-	public void valuesInRange() {
-		setUp1();
-		assertEquals(true,bst1.valuesInRange(3,5).contains("cuatro"));
-		assertEquals(true,bst1.valuesInRange(3,5).contains("cinco"));
-		assertEquals(false,bst1.valuesInRange(3,5).contains("uno"));
-		assertEquals(false,bst1.valuesInRange(3,5).contains("diez"));
-		assertEquals(false,bst1.valuesInRange(3,5).contains("seis"));
-		assertEquals(6,bst1.valuesInRange(3,7).size());
-	}
-	
 
 	@Test
-	public void revisarConRepeticiones() {
-		setUp6();
-		assertEquals(1,bst2.height());
-		assertEquals(true,bst2.valuesInRange(4,6).contains("1,5"));
-		assertEquals(true,bst2.valuesInRange(4,6).contains("3,5"));
-		assertEquals(true,bst2.valuesInRange(4,6).contains("5,5"));
-		
+	public void testContainsVertex() {
+		setUp1();
+		assertEquals(true, digraph.containsVertex(1));
+		assertEquals(true, digraph.containsVertex(2));
+		assertEquals(true, digraph.containsVertex(4));
+		assertEquals(true, digraph.containsVertex(5));
+		assertEquals(false, digraph.containsVertex(7));
+		assertEquals(false, digraph.containsVertex(8));
+		assertEquals(false, digraph.containsVertex(100));
 	}
-	
-	
-	
+
+	@Test
+	public void testNumVertices() {
+		setUp1();
+		setUp2();
+		assertEquals (5,digraph.numVertices());
+		assertEquals (9,digraph2.numVertices());
+	}
+
+	@Test
+	public void testNumEdges() {
+		setUp1();
+		setUp2();
+		assertEquals (9,digraph.numEdges());
+		assertEquals (0,digraph2.numEdges());
+	}
+
+	@Test
+	public void testInsertVertex() {
+		digraph = new DiGraph<Integer, String>();
+		digraph.insertVertex(1, "a");
+		assertEquals (1, digraph.numVertices());
+	}
+
+	@Test
+	public void testAddEdge() {
+		digraph = new DiGraph<Integer, String>();
+		digraph.insertVertex(1, "a");
+		digraph.insertVertex(2, "b");
+		digraph.addEdge(1, 2, 3);
+		assertEquals (1, digraph.numEdges());
+	}
+
+	@Test
+	public void testGetVertex() {
+		setUp2();
+		assertNotNull (digraph2.getVertex(1));
+		assertNotNull (digraph2.getVertex(3));
+		assertNotNull (digraph2.getVertex(5));
+		assertNull(digraph2.getVertex(10));
+		assertNull(digraph2.getVertex(5000));
+	}
+
+	@Test
+	public void testGetEdge() {
+		setUp1();
+		assertNotNull(digraph.getEdge(1, 2));
+		assertNotNull(digraph.getEdge(2, 1));
+		assertNotNull(digraph.getEdge(2, 3));
+		assertNotNull(digraph.getEdge(5, 4));
+		assertNotNull(digraph.getEdge(3, 4));
+
+		assertNull(digraph.getEdge(4, 3));
+		assertNull(digraph.getEdge(4, 5));
+		assertNull(digraph.getEdge(2, 4));
+		assertNull(digraph.getEdge(3, 1));
+		assertNull(digraph.getEdge(1, 3));
+	}
+
+	@Test
+	public void testAdjacentEdges() {
+		setUp1();
+
+		assertEquals(2, digraph.adjacentEdges(1).size());
+		assertEquals(3, digraph.adjacentEdges(5).size());
+		assertEquals(1, digraph.adjacentEdges(3).size());
+	}
+
+	@Test
+	public void testAdjacentVertex() {
+
+		setUp1();
+		assertEquals(2, digraph.adjacentVertex(1).size());
+		assertEquals(3, digraph.adjacentVertex(5).size());
+		assertEquals(1, digraph.adjacentVertex(3).size());
+	}
+
+	@Test
+	public void testIndegree() {
+		setUp1();
+		assertEquals(2, digraph.indegree(1));
+		assertEquals(3, digraph.indegree(2));
+		assertEquals(1, digraph.indegree(3));
+	}
+
+	@Test
+	public void testOutdegree() {
+		setUp1();
+		assertEquals(2, digraph.outdegree(1));
+		assertEquals(3, digraph.outdegree(5));
+		assertEquals(1, digraph.outdegree(3));
+	}
+
+	@Test
+	public void testEdges() {
+		setUp1();
+		setUp2();
+		assertEquals(9, digraph.edges().size());
+		assertEquals(0, digraph2.edges().size());
+	}
+
+	@Test
+	public void testVertices() {
+		setUp1();
+		setUp2();
+		assertEquals(5, digraph.vertices().size());
+		assertEquals(9, digraph2.vertices().size());
+	}
+
 }

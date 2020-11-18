@@ -1,7 +1,7 @@
 package modeloEstructuraDatos;
 
 public class Edge<K extends Comparable<K>, V> {
-	
+
 	private Vertex<K,V> source;
 	private Vertex<K,V> destino;
 	private double peso;
@@ -37,7 +37,7 @@ public class Edge<K extends Comparable<K>, V> {
 	public Vertex<K,V>  getSource(){
 		return source;
 	}
-	
+
 	/**
 	 * Devuelve el vertice destino
 	 * @return vertice destino
@@ -45,7 +45,7 @@ public class Edge<K extends Comparable<K>, V> {
 	public Vertex<K,V>  getDest(){
 		return destino;
 	}
-	
+
 	/**
 	 * Devuelve el peso del arco
 	 * @return peso del arco
@@ -53,6 +53,7 @@ public class Edge<K extends Comparable<K>, V> {
 	public double weight() {
 		return peso;
 	}
+
 	public void sumarPeso(double pesoASumar)
 	{
 		double pesoTotal = peso*viajes;
@@ -64,5 +65,9 @@ public class Edge<K extends Comparable<K>, V> {
 	 */
 	public void setWeight(double weight) {
 		peso = weight;
+	}
+
+	public String toString() {
+		return source.getId() + " " + destino.getId() + " " + weight();
 	}
 }

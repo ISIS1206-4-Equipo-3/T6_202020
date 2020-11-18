@@ -38,7 +38,6 @@ public class TablaHashLinearProbing <K, V> implements ITablaSimbolos <K, V>{
 		for (int i = 0; i < M; i++)
 			if (listaLlaves[i] != null) t.put(listaLlaves[i], listaValores[i]);
 		listaLlaves = t.listaLlaves; listaValores = t.listaValores; M = t.M;
-		System.out.println("Se ha realizado un rehash de la tabla con manejo de colisiones linear probing");
 	}
 
 	@Override
