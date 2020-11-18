@@ -9,7 +9,7 @@ public class Vertex<K extends Comparable<K>,V> {
 	
 	private List<Vertex<K,V>> vertices;
 	
-	private Estacion valor;
+	private V valor;
 	
 	private K id;
 	
@@ -24,10 +24,10 @@ public class Vertex<K extends Comparable<K>,V> {
 	 * @param id identificador
 	 * @param value valor asociado
 	 */
-	public Vertex(K id, int pLatitud, int pLongitud, String pNombre){
+	public Vertex(K id, V pValor){
 		
 		this.id = id;
-		valor = new Estacion(pLatitud, pLongitud, (int) id, pNombre);
+		valor = pValor;
 		marked = false;
 		arcos = new ArrayList<Edge<K,V>>();
 		vertices = new ArrayList<Vertex<K,V>>();
@@ -48,7 +48,7 @@ public class Vertex<K extends Comparable<K>,V> {
 	 * @return valor asociado al vertice
 	 */
 	public V getInfo() {
-		return (V) valor.darValor();
+		return valor;
 	}
 	
 	/**
