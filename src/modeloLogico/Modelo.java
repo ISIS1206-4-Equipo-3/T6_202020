@@ -86,8 +86,8 @@ public class Modelo {
 
 						}
 						int duracionViaje = Integer.parseInt(linea[0]);
-						int idFinal = Integer.parseInt(linea[8]);
-						int idBicicleta = Integer.parseInt(linea[12]);
+						int idFinal = Integer.parseInt(linea[7]);
+						int idBicicleta = Integer.parseInt(linea[11]);
 						double longitudInicio = Double.parseDouble(linea[6]);
 						double latitudInicio = Double.parseDouble(linea[5]);
 						double longitudFinal = Double.parseDouble(linea[10]);
@@ -111,7 +111,7 @@ public class Modelo {
 			double pesoMax = 0.0;
 			for (int i = 0; i < arcos.size(); i++) {
 				if (arcos.get(i).weight()<pesoMin) {
-					
+					pesoMin = arcos.get(i).weight();
 				}
 			}
 			
