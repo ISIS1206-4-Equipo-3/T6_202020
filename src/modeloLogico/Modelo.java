@@ -39,21 +39,21 @@ public class Modelo {
 
 	public Modelo() { view = new View(); }
 
-	public void cargarDatos(Integer[] lista)
+	public void cargarDatos(String[] lista)
 	{
 		try {
 			cantidadDeViajesBicicletaCargados = 0;
 			String ruta=" ";
 			long startTime = System.nanoTime();	
 			graph =  new DiGraph <Integer, String>();
-			for (Integer numero : lista) {
-				if (numero == 1) 
+			for (String numero : lista) {
+				if (numero.equals("1")) 
 					ruta = RUTA_DATOS_1;
-				if (numero == 2) 
+				if (numero.equals("2")) 
 					ruta = RUTA_DATOS_2;
-				if (numero == 3) 
+				if (numero.equals("3")) 
 					ruta = RUTA_DATOS_3;
-				if (numero == 4) 
+				if (numero.equals("4")) 
 					ruta = RUTA_DATOS_4;
 
 				CSVParser parser = new CSVParserBuilder().withSeparator(',').build();   

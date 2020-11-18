@@ -62,7 +62,20 @@ public class Controlador {
 					view.printInformacionDeCreadores();
 					break;
 				case 10:
-					view.printError("Req aun no realizado");//REQUERERIMIENTO AUN NO REALIZADO (Borrar al realizar)
+					view.printMessage("Escriba el numero de los archivos que desea cargar (separados por coma)");
+					String rutasreq10 = lectura.nextLine();
+					String[] lista = rutasreq10.split(",");
+					for (int i = 0; i < lista.length; i++) {
+						lista[i]=lista[i].trim();
+					}
+					try
+					{
+						modelo.cargarDatos(lista);
+					}
+					catch (Exception e)
+					{
+						view.printError("No se uso el formato adecuado, por favor usar numeros del 1 al 4 separados por coma.");
+					}
 					break;
 				case 0:
 					acabar=true;
