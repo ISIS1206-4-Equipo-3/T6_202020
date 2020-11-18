@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TablaHashSeparateChaining<K extends Comparable<K>, V extends Comparable<V>> implements ITablaSimbolos <K, V>{
 
-	private Vertex[] valueList;
+	private NodoTH[] valueList;
 	private int M;
 
 	/**

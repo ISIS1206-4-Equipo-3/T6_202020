@@ -2,8 +2,13 @@ package modeloEstructuraDatos;
 
 import java.util.List;
 
-public class DiGraph<K extends Comparable<K>,V> implements IDiGraph<K, V> {
+public class DiGraph<K extends Comparable<K>, V extends Comparable<V>> implements IDiGraph<K, V> {
 
+	TablaHashSeparateChaining<K, V> tabla;
+	
+	public DiGraph () {
+		
+	}
 	
 	@Override
 	public boolean containsVertex(K id) {
@@ -31,7 +36,6 @@ public class DiGraph<K extends Comparable<K>,V> implements IDiGraph<K, V> {
 
 	@Override
 	public void addEdge(K source, K dest, double weight) {
-		// TODO Auto-generated method stub
 		
 	}
 
