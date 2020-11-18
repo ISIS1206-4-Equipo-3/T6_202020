@@ -8,12 +8,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
 import modeloEstructuraDatos.DiGraph;
+import modeloEstructuraDatos.Edge;
 import modeloEstructuraDatos.Viaje;
 import view.View;
 
@@ -68,7 +71,7 @@ public class Modelo {
 						String[] fechaJusta2 = fechaFin[0].split("-");
 						Date fechaInicial = new Date();
 						Date fechaFinal = new Date();
-						String idInicio = linea[3];
+						int idInicio = Integer.parseInt(linea[3]);
 						try
 						{
 							DateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -83,8 +86,8 @@ public class Modelo {
 
 						}
 						int duracionViaje = Integer.parseInt(linea[0]);
-						String idFinal = linea[8];
-						String idBicicleta = linea[12];
+						int idFinal = Integer.parseInt(linea[8]);
+						int idBicicleta = Integer.parseInt(linea[12]);
 						double longitudInicio = Double.parseDouble(linea[6]);
 						double latitudInicio = Double.parseDouble(linea[5]);
 						double longitudFinal = Double.parseDouble(linea[10]);
@@ -103,9 +106,20 @@ public class Modelo {
 				}
 			}
 			long endTime = System.nanoTime();
+			ArrayList<Edge<Integer,String>> arcos = (ArrayList<Edge<Integer, String>>) graph.edges();
+			double pesoMin = Integer.MAX_VALUE;
+			double pesoMax = 0.0;
+			for (int i = 0; i < arcos.size(); i++) {
+				if (arcos.get(i).weight()<pesoMin) {
+					
+				}
+			}
+			
 			System.out.println("-------- Los datos fueron cargados correctamente --------\n");
 			System.out.println("Se cargaron: "+cantidadDeViajesBicicletaCargados+" viajes\n");
 			System.out.println("Son "+graph.vertices().size()+" estaciones\n");
+			System.out.println("Son "+ arcos.size() +" arcos entre estaciones\n");
+			System.out.println("El arco con peso mínimo es "+       +" con "+ +"vertices que conecta y su peso es "+);
 			System.out.println("Tiempo que tardo la carga de datos: " + (endTime-startTime)/1e6 + " ms \n\n");
 		}
 			catch (Exception e) {
