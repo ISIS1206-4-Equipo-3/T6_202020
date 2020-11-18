@@ -34,6 +34,7 @@ public class Controlador {
 				view.printMenu();
 				int opcion = Integer.parseInt(lectura.nextLine());
 				switch(opcion) {
+				
 				case 1:
 					view.printError("Req aun no realizado");//REQUERERIMIENTO AUN NO REALIZADO (Borrar al realizar)
 					break;
@@ -77,6 +78,11 @@ public class Controlador {
 						view.printError("No se uso el formato adecuado, por favor usar numeros del 1 al 4 separados por coma.");
 					}
 					break;
+				case 11:
+					view.printMessage("Escriba el id de la estacion que desea buscar");
+					int id = Integer.parseInt(lectura.nextLine());
+					System.out.println(modelo.gradoEntradaSalida(id));
+					break;	
 				case 0:
 					acabar=true;
 					view.printDespedida();

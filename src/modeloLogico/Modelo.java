@@ -17,6 +17,7 @@ import com.opencsv.CSVReaderBuilder;
 
 import modeloEstructuraDatos.DiGraph;
 import modeloEstructuraDatos.Edge;
+import modeloEstructuraDatos.Vertex;
 import modeloEstructuraDatos.Viaje;
 import view.View;
 
@@ -137,6 +138,13 @@ public class Modelo {
 			}	
 		
 	}
+	public String gradoEntradaSalida(int id)
+	{
+		Vertex vertice = graph.getVertex(id);
+		if(vertice == null)
+			return "Esta estacion no existe";
+					
+		return "El grado de entrada de la estacion " + id + " es: " + vertice.indegree() + ", el de salida es: " + vertice.outdegree();	}
 	
 	public DiGraph darDiGraph() {
 		return graph;

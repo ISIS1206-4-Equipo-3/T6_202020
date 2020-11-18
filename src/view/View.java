@@ -12,14 +12,15 @@ public class View {
 	public void printMenu()
 	{
 		System.out.println("-----------------------------------------------------------------\n");
+		System.out.println("11. Grado de entrada y salida de una estacion");
 		System.out.println("1. Cantidad de cluster de Viajes (REQ. 1:G)");
-		System.out.println("2. Ruta turística Circular (REQ. 2:I)");
-		System.out.println("3. Ruta turística de menor tiempo (REQ. 3:I)");
-		System.out.println("4. Ruta turística por resistencia (REQ. 4:I)");
+		System.out.println("2. Ruta turistica Circular (REQ. 2:I)");
+		System.out.println("3. Ruta turistica de menor tiempo (REQ. 3:I)");
+		System.out.println("4. Ruta turistica por resistencia (REQ. 4:I)");
 		System.out.println("5. Ruta mas corta entre estaciones (Req. 5:G)");
-		System.out.println("6. Ruta de interés turístico (REQ. 6:G)");
-		System.out.println("7. Identificación de Estaciones para Publicidad (REQ. 7:B)");
-		System.out.println("8. Identificación de bicicletas para mantenimiento (REQ. 8:B)");
+		System.out.println("6. Ruta de interes turistico (REQ. 6:G)");
+		System.out.println("7. Identificacion de Estaciones para Publicidad (REQ. 7:B)");
+		System.out.println("8. Identificacion de bicicletas para mantenimiento (REQ. 8:B)");
 		System.out.println("9. Informacion de creadores");
 		System.out.println("10. Cargar datos ");
 		System.out.println("\n0. <-----EXIT");
