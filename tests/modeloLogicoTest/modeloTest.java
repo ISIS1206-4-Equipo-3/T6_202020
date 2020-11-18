@@ -33,6 +33,14 @@ public class modeloTest {
 		//System.out.println((graph.getVertex(72).getInfo()).toString()); esto solo funciona cuano se cargen con los valores 
 	}
 
+	@Test
+	public void testGradoEntradaSalida()
+	{
+		setUp1();
+		assertEquals(modelo.gradoEntradaSalida(119), "El grado de entrada de la estacion 119 es: 3, el de salida es: 53");
+		assertEquals(modelo.gradoEntradaSalida(83), "El grado de entrada de la estacion 83 es: 3, el de salida es: 162");
+		assertEquals(modelo.gradoEntradaSalida(0), "Esta estacion no existe");
+	}
 	
 	
 	
