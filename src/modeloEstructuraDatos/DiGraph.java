@@ -6,11 +6,11 @@ import java.util.List;
 public class DiGraph<K extends Comparable<K>, V> implements IDiGraph<K, V> {
 
 	TablaHashLinearProbing<K, Vertex<K,V>> tablaHash;
-	
+
 	public DiGraph () {
 		tablaHash = new TablaHashLinearProbing<K, Vertex<K,V>>(2);
 	}
-	
+
 	@Override
 	public boolean containsVertex(K id) {
 		if (tablaHash.get(id)==null) return false;
@@ -44,7 +44,7 @@ public class DiGraph<K extends Comparable<K>, V> implements IDiGraph<K, V> {
 		Vertex vertexSource = (Vertex) tablaHash.get(source);
 		Vertex vertexDest = (Vertex) tablaHash.get(dest);
 		if(vertexSource == null || vertexDest == null) 
-			{System.out.println("OJO_EXISTIO_ERROR_EN_ADD_EDGE");}
+		{System.out.println("OJO_EXISTIO_ERROR_EN_ADD_EDGE");}
 		else {
 			List<Edge<K,V>> lista = vertexSource.edges();
 			boolean encontro = false;
@@ -63,7 +63,6 @@ public class DiGraph<K extends Comparable<K>, V> implements IDiGraph<K, V> {
 				vertexSource.edges().add(arco);
 			}
 		}
-		
 	}
 
 	@Override
@@ -75,19 +74,21 @@ public class DiGraph<K extends Comparable<K>, V> implements IDiGraph<K, V> {
 	@Override
 	public Edge<K, V> getEdge(K idS, K idD) {
 		// TODO Auto-generated method stub
+		List <Edge<K, V>> edges = tablaHash.get(idS).edges();
+		for (Edge<K, V> edge : edges) {
+			if(edge.getDest().getId() ==  idD) return edge;
+		}
 		return null;
 	}
 
 	@Override
 	public List<Edge<K, V>> adjacentEdges(K id) {
-		// TODO Auto-generated method stub
-		return null;
+		return tablaHash.get(id).edges();
 	}
 
 	@Override
 	public List<Vertex<K, V>> adjacentVertex(K id) {
-		// TODO Auto-generated method stub
-		return null;
+		return tablaHash.get(id).vertices();
 	}
 
 	@Override
@@ -106,13 +107,17 @@ public class DiGraph<K extends Comparable<K>, V> implements IDiGraph<K, V> {
 
 	@Override
 	public List<Edge<K, V>> edges() {
-		// TODO Auto-generated method stub
+		ArrayList<Edge<K, V>> rta = new ArrayList<Edge<K, V>>();
+		List <Vertex<K, V>> vertices = vertices();
+		for (Vertex<K,V> vertice : vertices) {
+			rta.addAll(vertice.edges());
+		}
 		return null;
 	}
 
 	@Override
 	public List <Vertex<K, V>> vertices() {
-		return null;
+		return tablaHash.valueSet();
 	}
 
 }
