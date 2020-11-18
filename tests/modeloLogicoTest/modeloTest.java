@@ -28,9 +28,9 @@ public class modeloTest {
 		setUp1();
 		assertNotNull(modelo.darDiGraph());
 		DiGraph<Integer, String> graph = modelo.darDiGraph();
-		assertNotNull(graph.getVertex("72"));
+		assertNotNull(graph.getVertex(72));
 		assertNotNull(graph.getVertex(79));
-		graph.getVertex(72).getInfo();
+		//System.out.println((graph.getVertex(72).getInfo()).toString()); esto solo funciona cuano se cargen con los valores 
 	}
 
 	
