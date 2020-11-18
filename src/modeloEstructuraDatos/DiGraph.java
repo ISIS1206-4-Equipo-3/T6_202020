@@ -61,6 +61,9 @@ public class DiGraph<K extends Comparable<K>, V> implements IDiGraph<K, V> {
 			{
 				Edge<K,V> arco = new Edge<>(vertexSource, vertexDest, weight);
 				vertexSource.edges().add(arco);
+				vertexSource.addVertex(vertexSource);
+				vertexSource.UnOutDegreeMas();
+				vertexDest.UnInDegreeMas();
 			}
 		}
 	}

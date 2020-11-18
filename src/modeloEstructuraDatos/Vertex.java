@@ -68,11 +68,17 @@ public class Vertex<K extends Comparable<K>,V> {
 		arcos.add(edge);
 	}
 	
+	/**
+	 * Suma 1 al gradoOut, o sea que se cuenta un arco saliente mas
+	 */
 	public void UnOutDegreeMas()
 	{
 		gradoOut++;
 	}
 	
+	/**
+	 * Suma 1 al gradoIn, o sea que se cuenta un arco entrante mas
+	 */
 	public void UnInDegreeMas()
 	{
 		gradoIn++;
