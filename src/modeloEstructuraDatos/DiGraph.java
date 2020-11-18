@@ -41,9 +41,28 @@ public class DiGraph<K extends Comparable<K>, V> implements IDiGraph<K, V> {
 
 	@Override
 	public void addEdge(K source, K dest, double weight) {
-		Vertex vertexsource = (Vertex) tablaHash.get(source);
-		Vertex vertexdest = (Vertex) tablaHash.get(dest);
-		if(vertexsource == null || vertexdest == null) System.out.println("OJO_EXISTIO_ERROR_EN_ADD_EDGE");
+		Vertex vertexSource = (Vertex) tablaHash.get(source);
+		Vertex vertexDest = (Vertex) tablaHash.get(dest);
+		if(vertexSource == null || vertexDest == null) 
+			{System.out.println("OJO_EXISTIO_ERROR_EN_ADD_EDGE");}
+		else {
+			List<Edge<K,V>> lista = vertexSource.edges();
+			boolean encontro = false;
+			for(int i =0; i<lista.size() && !encontro ; i++)
+			{
+				Edge<K,V> arco = lista.get(i);
+				if(arco.getDest().equals(vertexDest))
+				{
+					encontro = true;
+					arco.sumarPeso(weight);
+				}
+			}
+			if(!encontro)
+			{
+				Edge<K,V> arco = new Edge<>(vertexSource, vertexDest, weight);
+				vertexSource.edges().add(arco);
+			}
+		}
 		
 	}
 
