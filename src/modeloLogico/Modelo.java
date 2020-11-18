@@ -104,14 +104,18 @@ public class Modelo {
 			}
 			long endTime = System.nanoTime();
 			System.out.println("-------- Los datos fueron cargados correctamente --------\n");
+			System.out.println("Se cargaron: "+cantidadDeViajesBicicletaCargados+" viajes\n");
+			System.out.println("Son "+graph.vertices().size()+" estaciones\n");
 			System.out.println("Tiempo que tardo la carga de datos: " + (endTime-startTime)/1e6 + " ms \n\n");
 		}
 			catch (Exception e) {
 				e.printStackTrace();
 			}	
-
-
 		
+	}
+	
+	public DiGraph darDiGraph() {
+		return graph;
 	}
 }
 
