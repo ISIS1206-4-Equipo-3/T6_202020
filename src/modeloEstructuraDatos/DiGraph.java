@@ -4,10 +4,10 @@ import java.util.List;
 
 public class DiGraph<K extends Comparable<K>, V extends Comparable<V>> implements IDiGraph<K, V> {
 
-	TablaHashSeparateChaining<K, V> tabla;
+	TablaHashLinearProbing<K, V> tablaHash;
 	
 	public DiGraph () {
-		
+		tablaHash = new TablaHashLinearProbing<K, V>(5);
 	}
 	
 	@Override

@@ -1,12 +1,12 @@
 package modeloEstructuraDatos;
 
-public class NodoTH {
+public class Nodo {
 
 	private Object key;
 	private Object valor;
-	private NodoTH siguiente;
+	private Nodo siguiente;
 
-	public NodoTH(Object pkey, Object value) {
+	public Nodo(Object pkey, Object value) {
 		this.key = pkey;
 		this.valor = value;
 	}
@@ -17,9 +17,9 @@ public class NodoTH {
 	
 	public Object darKey() { return key; }
 	
-	public NodoTH darSiguiente() {return siguiente;}
+	public Nodo darSiguiente() {return siguiente;}
 	
-	public void setSiguiente (NodoTH pSiguiente) {siguiente = pSiguiente;}
+	public void setSiguiente (Nodo pSiguiente) {siguiente = pSiguiente;}
 	
 	public boolean tieneSiguiente () {
 		if(siguiente==null) return false;
