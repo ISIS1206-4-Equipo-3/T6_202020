@@ -7,12 +7,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-import modeloEstructuraDatos.BST;
 
-public class BSTTest {
+public class DiGraphTest {
 	
-	private BST bst1;
-	private BST bst2;
+	private DiGraph bst1;
+	private DiGraph bst2;
 	
 	public void setUp1() {
 		bst1 = new BST<Integer, String>(null);
