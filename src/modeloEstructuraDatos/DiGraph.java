@@ -5,10 +5,10 @@ import java.util.List;
 
 public class DiGraph<K extends Comparable<K>, V> implements IDiGraph<K, V> {
 
-	TablaHashLinearProbing<K, V> tablaHash;
+	TablaHashLinearProbing<K, Vertex<K,V>> tablaHash;
 	
 	public DiGraph () {
-		tablaHash = new TablaHashLinearProbing<K, V>(2);
+		tablaHash = new TablaHashLinearProbing<K, Vertex<K,V>>(2);
 	}
 	
 	@Override
@@ -35,7 +35,8 @@ public class DiGraph<K extends Comparable<K>, V> implements IDiGraph<K, V> {
 
 	@Override
 	public void insertVertex(K id, V value) {
-		tablaHash.put(id, value);
+		Vertex <K,V> nuevo = new Vertex<K,V>(id, value);
+		tablaHash.put(id, nuevo);
 	}
 
 	@Override
@@ -72,14 +73,16 @@ public class DiGraph<K extends Comparable<K>, V> implements IDiGraph<K, V> {
 
 	@Override
 	public int indegree(K vertex) {
-		// TODO Auto-generated method stub
-		return 0;
+		Vertex act = (Vertex) tablaHash.get(vertex);
+		if (act==null) return 0;
+		return act.indegree();
 	}
 
 	@Override
 	public int outdegree(K vertex) {
-		// TODO Auto-generated method stub
-		return 0;
+		Vertex act = (Vertex) tablaHash.get(vertex);
+		if (act==null) return 0;
+		return act.outdegree();
 	}
 
 	@Override
@@ -89,8 +92,7 @@ public class DiGraph<K extends Comparable<K>, V> implements IDiGraph<K, V> {
 	}
 
 	@Override
-	public List<Vertex<K, V>> vertices() {
-		// TODO Auto-generated method stub
+	public List <Vertex<K, V>> vertices() {
 		return null;
 	}
 
