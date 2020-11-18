@@ -112,7 +112,7 @@ public class DiGraph<K extends Comparable<K>, V> implements IDiGraph<K, V> {
 		for (Vertex<K,V> vertice : vertices) {
 			rta.addAll(vertice.edges());
 		}
-		return null;
+		return rta;
 	}
 
 	@Override
