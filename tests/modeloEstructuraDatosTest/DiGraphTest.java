@@ -72,6 +72,7 @@ public class DiGraphTest {
 		setUp2();
 		assertEquals (9,digraph.numEdges());
 		assertEquals (0,digraph2.numEdges());
+		assertEquals (digraph.numEdges(), digraph.edges().size());
 	}
 
 	@Test

@@ -5,9 +5,9 @@ import java.util.Date;
 public class Viaje {
 
 	private int duracionViaje;	
-	private String idInicio;
-	private String idFinal;
-	private String idBicicleta;
+	private int idInicio;
+	private int idFinal;
+	private int idBicicleta;
 	private double latitudInicio;
 	private double latitudFinal;
 	private double longitudInicio;
@@ -16,7 +16,7 @@ public class Viaje {
 	private Date fechaFinal;
 	
 	
-	public Viaje(int duracionViaje, String idInicio, String idFinal, String idBicicleta, double latitudInicio, double latitudFinal, double longitudInicio, double longitudFinal, Date fechaInicio, Date fechaFinal) {
+	public Viaje(int duracionViaje, int idInicio, int idFinal, int idBicicleta, double latitudInicio, double latitudFinal, double longitudInicio, double longitudFinal, Date fechaInicio, Date fechaFinal) {
 		
 		this.duracionViaje = duracionViaje;
 		this.idInicio = idInicio;
@@ -52,32 +52,32 @@ public class Viaje {
 	}
 
 
-	public String getIdInicio() {
+	public int getIdInicio() {
 		return idInicio;
 	}
 
 
-	public void setIdInicio(String idInicio) {
+	public void setIdInicio(int idInicio) {
 		this.idInicio = idInicio;
 	}
 
 
-	public String getIdFinal() {
+	public int getIdFinal() {
 		return idFinal;
 	}
 
 
-	public void setIdFinal(String idFinal) {
+	public void setIdFinal(int idFinal) {
 		this.idFinal = idFinal;
 	}
 
 
-	public String getIdBicicleta() {
+	public int getIdBicicleta() {
 		return idBicicleta;
 	}
 
 
-	public void setIdBicicleta(String idBicicleta) {
+	public void setIdBicicleta(int idBicicleta) {
 		this.idBicicleta = idBicicleta;
 	}
 
