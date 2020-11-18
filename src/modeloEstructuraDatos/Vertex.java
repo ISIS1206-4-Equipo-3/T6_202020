@@ -3,34 +3,39 @@ package modeloEstructuraDatos;
 import java.util.List;
 
 public class Vertex<K extends Comparable<K>,V> {
+	
+	boolean marked;
+	List<Vertex<K,V>> vertices;
+	
+	List<Edge<K,V>> arcos;
 	/**
-	 * Crea un vértice con identificador único y valor 
-	 * (información asociada), el vértice inicia desmarcado
+	 * Crea un vertice con identificador unico y valor 
+	 * (informacion asociada), el vertice inicia desmarcado
 	 * @param id identificador
 	 * @param value valor asociado
 	 */
 	public Vertex(K id, V value){
-		
+		marked = false;
 	}
 	
 	/**
-	 * Devuelve el identificador del vértice
-	 * @return identificador del vértice
+	 * Devuelve el identificador del vertice
+	 * @return identificador del vertice
 	 */
 	public  K getId() {
 		return null;
 	}
 	
 	/**
-	 * Devuelve el valor asociado al vértice
-	 * @return valor asociado al vértice
+	 * Devuelve el valor asociado al vertice
+	 * @return valor asociado al vertice
 	 */
 	public V getInfo() {
 		return null;
 	}
 	
 	/**
-	 * Retorna si el vértice está marcado o no
+	 * Retorna si el vertice esta marcado o no
 	 * @return true en el caso de marcado, false en el caso contrario
 	 */
 	public boolean getMark() {
@@ -38,7 +43,7 @@ public class Vertex<K extends Comparable<K>,V> {
 	}
 	
 	/**
-	 *  Agrega un arco adyacente al vértice
+	 *  Agrega un arco adyacente al vertice
 	 * @param edge arco adyacente que se quiere agregar al vertice
 	 */
 	public void addEdge( Edge<K,V> edge ) {
@@ -49,34 +54,34 @@ public class Vertex<K extends Comparable<K>,V> {
 	 * marca el vertice
 	 */
 	public void mark() {
-		
+		marked = true;
 	}
 	
 	/**
 	 * desmarca el vertice
 	 */
 	public void unmark() {
-		
+		marked = false;
 	}
 	
 	/**
-	 * Retorna el número de arcos (salientes) del vértice
-	 * @return número de arcos salientes del vértice
+	 * Retorna el numero de arcos (salientes) del vertice
+	 * @return numero de arcos salientes del vertice
 	 */
 	public int outdegree() {
 		return 0;
 	}
 	
 	/**
-	 * Retorna el número de arcos (entrantes) del vértice
-	 * @return número de arcos entrantes del vértice
+	 * Retorna el numero de arcos (entrantes) del vertice
+	 * @return numero de arcos entrantes del vertice
 	 */
 	public int indegree() {
 		return 0;
 	}
 	
 	/**
-	 * Retorna el arco con el vértice vertex (si existe). 
+	 * Retorna el arco con el vertice vertex (si existe). 
 	 * Retorna null si no existe.
 	 * @param vertex vertice a buscar y a retornar su arco
 	 * @return arco con vertice vertex, null en  el caso de no encontrarlo/no existir.
@@ -86,8 +91,8 @@ public class Vertex<K extends Comparable<K>,V> {
 	}
 	
 	 /**
-	  * Retorna una lista con sus vértices adyacentes (salientes)
-	  * @return lista con sus vértices adyacentes salientes
+	  * Retorna una lista con sus vertices adyacentes (salientes)
+	  * @return lista con sus vertices adyacentes salientes
 	  */
 	public List<Vertex<K,V>> vertices(){
 		return null;
