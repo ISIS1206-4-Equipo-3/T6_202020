@@ -12,7 +12,6 @@ public class View {
 	public void printMenu()
 	{
 		System.out.println("-----------------------------------------------------------------\n");
-		System.out.println("11. Grado de entrada y salida de una estacion");
 		System.out.println("1. Cantidad de cluster de Viajes (REQ. 1:G)");
 		System.out.println("2. Ruta turistica Circular (REQ. 2:I)");
 		System.out.println("3. Ruta turistica de menor tiempo (REQ. 3:I)");
@@ -23,6 +22,7 @@ public class View {
 		System.out.println("8. Identificacion de bicicletas para mantenimiento (REQ. 8:B)");
 		System.out.println("9. Informacion de creadores");
 		System.out.println("10. Cargar datos ");
+		System.out.println("11. Grado de entrada y salida de una estacion (TALLER 6)");
 		System.out.println("\n0. <-----EXIT");
 		
 		
@@ -37,6 +37,15 @@ public class View {
 
 		System.out.println(mensaje);
 	}		
+	
+	public void printExplicacionDeCarga() {
+		System.out.println("\nSe brindan 4 archivos diferentes:");
+		System.out.println("   1. 201801-1-citibike-tripdata.csv");
+		System.out.println("   2. 201801-2-citibike-tripdata.csv");
+		System.out.println("   3. 201801-3-citibike-tripdata.csv");
+		System.out.println("   4. 201801-4-citibike-tripdata.csv");
+		System.out.println("\nEJ: Si desea cargar el archivo 1. y 3. entonces seleccione opción 10 y despues introduzca \"1,3\"\n");
+	}
 
 	
 	public void printInformacionDeCreadores(){

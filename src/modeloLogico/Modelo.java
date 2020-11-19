@@ -51,14 +51,15 @@ public class Modelo {
 			long startTime = System.nanoTime();	
 			graph =  new DiGraph <Integer, String>();
 			for (String numero : lista) {
-				if (numero.equals("1")) 
-					ruta = RUTA_DATOS_1;
-				if (numero.equals("2")) 
-					ruta = RUTA_DATOS_2;
-				if (numero.equals("3")) 
-					ruta = RUTA_DATOS_3;
-				if (numero.equals("4")) 
-					ruta = RUTA_DATOS_4;
+				if (numero.equals("1")) ruta = RUTA_DATOS_1;
+				else if (numero.equals("2")) ruta = RUTA_DATOS_2;
+				else if (numero.equals("3")) ruta = RUTA_DATOS_3;
+				else if (numero.equals("4")) ruta = RUTA_DATOS_4;
+				else {
+					view.printError("No se a identificado el caracter \"" + numero + "\" la carga de datos ha fallado y se ha detenido.");
+					graph = null;
+					return;
+				}
 
 				CSVParser parser = new CSVParserBuilder().withSeparator(',').build();   
 				archivo = new FileReader(ruta);
@@ -83,7 +84,7 @@ public class Modelo {
 						{
 							fechaInicial = new Date(0, 0, 0);
 							fechaFinal = new Date(0, 0, 0);
-							view.printMessage("Ha existido un error anadiendo el viaje que inicia en la estación con id " +idInicio);
+							view.printMessage("Ha existido un error anadiendo el viaje que inicia en la estaciï¿½n con id " +idInicio);
 
 						}
 						int duracionViaje = Integer.parseInt(linea[0]);
@@ -129,8 +130,8 @@ public class Modelo {
 			System.out.println("Se cargaron: "+cantidadDeViajesBicicletaCargados+" viajes\n");
 			System.out.println("Son "+graph.vertices().size()+" estaciones\n");
 			System.out.println("Son "+ arcos.size() +" arcos entre estaciones\n");
-			System.out.println("El arco con peso mínimo conecta el vertice con id "+ arcoMin.getSource().getInfo() +" con el vertice con id "+ arcoMin.getDest().getInfo() + " y su peso es "+ arcoMin.weight());
-			System.out.println("El arco con peso máximo conecta el vertice con id "+ arcoMax.getSource().getInfo() +" con el vertice con id "+ arcoMax.getDest().getInfo() + " y su peso es "+ arcoMax.weight());
+			System.out.println("El arco con peso mï¿½nimo conecta el vertice con id "+ arcoMin.getSource().getInfo() +" con el vertice con id "+ arcoMin.getDest().getInfo() + " y su peso es "+ arcoMin.weight());
+			System.out.println("El arco con peso mï¿½ximo conecta el vertice con id "+ arcoMax.getSource().getInfo() +" con el vertice con id "+ arcoMax.getDest().getInfo() + " y su peso es "+ arcoMax.weight());
 			System.out.println("Tiempo que tardo la carga de datos: " + (endTime-startTime)/1e6 + " ms \n\n");
 		}
 			catch (Exception e) {
@@ -140,11 +141,12 @@ public class Modelo {
 	}
 	public String gradoEntradaSalida(int id)
 	{
+		long startTime = System.nanoTime();	
 		Vertex vertice = graph.getVertex(id);
 		if(vertice == null)
 			return "Esta estacion no existe";
-					
-		return "El grado de entrada de la estacion " + id + " es: " + vertice.indegree() + ", el de salida es: " + vertice.outdegree();	}
+		long endTime = System.nanoTime();
+		return "El grado de entrada de la estacion " + id + " es: " + vertice.indegree() + ", el de salida es: " + vertice.outdegree() + "\nTiempo de la carga "+ (endTime-startTime)/1e6 + " ms\n";	}
 	
 	public DiGraph darDiGraph() {
 		return graph;

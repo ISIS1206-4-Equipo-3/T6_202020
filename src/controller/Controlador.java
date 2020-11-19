@@ -36,35 +36,60 @@ public class Controlador {
 				switch(opcion) {
 				
 				case 1:
+
+					if(!verificarDatosCargados()) {view.printError("Se deben cargar primero los datos (OPC.10)"); break;}
+					
 					view.printError("Req aun no realizado");//REQUERERIMIENTO AUN NO REALIZADO (Borrar al realizar)
 					break;
 				case 2:
+
+					if(!verificarDatosCargados()) {view.printError("Se deben cargar primero los datos (OPC.10)"); break;}
+					
 					view.printError("Req aun no realizado");//REQUERERIMIENTO AUN NO REALIZADO (Borrar al realizar)
 					break;
 				case 3:
+
+					if(!verificarDatosCargados()) {view.printError("Se deben cargar primero los datos (OPC.10)"); break;}
+					
 					view.printError("Req aun no realizado");//REQUERERIMIENTO AUN NO REALIZADO (Borrar al realizar)
 					break;
 				case 4:
+
+					if(!verificarDatosCargados()) {view.printError("Se deben cargar primero los datos (OPC.10)"); break;}
+					
 					view.printError("Req aun no realizado");//REQUERERIMIENTO AUN NO REALIZADO (Borrar al realizar)
 					break;
 				case 5:
+
+					if(!verificarDatosCargados()) {view.printError("Se deben cargar primero los datos (OPC.10)"); break;}
+					
 					view.printError("Req aun no realizado");//REQUERERIMIENTO AUN NO REALIZADO (Borrar al realizar)
 					break;
 				case 6:
+
+					if(!verificarDatosCargados()) {view.printError("Se deben cargar primero los datos (OPC.10)"); break;}
+					
 					view.printError("Req aun no realizado");//REQUERERIMIENTO AUN NO REALIZADO (Borrar al realizar)
 					break;
 				case 7:
+
+					if(!verificarDatosCargados()) {view.printError("Se deben cargar primero los datos (OPC.10)"); break;}
+					
 					view.printError("Req aun no realizado");//REQUERERIMIENTO AUN NO REALIZADO (Borrar al realizar)
 					break;
 				case 8:
+
+					if(!verificarDatosCargados()) {view.printError("Se deben cargar primero los datos (OPC.10)"); break;}
+					
 					view.printError("Req aun no realizado");//REQUERERIMIENTO AUN NO REALIZADO (Borrar al realizar)
 					break;
 				case 9:
 					view.printInformacionDeCreadores();
 					break;
 				case 10:
-					view.printMessage("Escriba el numero de los archivos que desea cargar (separados por coma)");
+					view.printMessage("Escriba el numero de los archivos que desea cargar (separados por coma). Para mayor informacion escriba \"?\"");
 					String rutasreq10 = lectura.nextLine();
+					if (rutasreq10.contains("?")) {view.printExplicacionDeCarga(); break;}
 					String[] lista = rutasreq10.split(",");
 					for (int i = 0; i < lista.length; i++) {
 						lista[i]=lista[i].trim();
@@ -79,6 +104,9 @@ public class Controlador {
 					}
 					break;
 				case 11:
+					
+					if(!verificarDatosCargados()) {view.printError("Se deben cargar primero los datos (OPC.10)"); break;}
+					
 					view.printMessage("Escriba el id de la estacion que desea buscar");
 					int id = Integer.parseInt(lectura.nextLine());
 					System.out.println(modelo.gradoEntradaSalida(id));
@@ -104,5 +132,10 @@ public class Controlador {
 
 		}
 
+	}
+	
+	private boolean verificarDatosCargados() {
+		if (modelo.darDiGraph()==null) return false;
+		return true;
 	}
 }
