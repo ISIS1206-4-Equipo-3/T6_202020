@@ -8,7 +8,7 @@ public class DiGraph<K extends Comparable<K>, V> implements IDiGraph<K, V> {
 	TablaHashLinearProbing<K, Vertex<K,V>> tablaHash;
 
 	public DiGraph () {
-		tablaHash = new TablaHashLinearProbing<K, Vertex<K,V>>(2);
+		tablaHash = new TablaHashLinearProbing<K, Vertex<K,V>>(1000);
 	}
 
 	@Override
