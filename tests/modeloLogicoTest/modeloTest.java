@@ -37,9 +37,9 @@ public class modeloTest {
 	public void testGradoEntradaSalida()
 	{
 		setUp1();
-		assertEquals(modelo.gradoEntradaSalida(119), "El grado de entrada de la estacion 119 es: 3, el de salida es: 53");
-		assertEquals(modelo.gradoEntradaSalida(83), "El grado de entrada de la estacion 83 es: 3, el de salida es: 162");
-		assertEquals(modelo.gradoEntradaSalida(0), "Esta estacion no existe");
+		assertEquals(modelo.gradoEntradaSalida(119).contains("El grado de entrada de la estacion 119 es: 3, el de salida es: 53"),true);
+		assertEquals(modelo.gradoEntradaSalida(83).contains("El grado de entrada de la estacion 83 es: 3, el de salida es: 162"), true);
+		assertEquals(modelo.gradoEntradaSalida(0).contains("Esta estacion no existe"),true );
 	}
 	
 	

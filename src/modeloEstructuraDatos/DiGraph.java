@@ -122,5 +122,26 @@ public class DiGraph<K extends Comparable<K>, V> implements IDiGraph<K, V> {
 	public List <Vertex<K, V>> vertices() {
 		return tablaHash.valueSet();
 	}
+	
+	public TablaHashLinearProbing<K, Vertex<K,V>> darTablaHashAct() {
+		return tablaHash;
+	}
+	
+	public DiGraph<K, V> darVuelta() {
+		DiGraph<K, V> rta = new DiGraph<>();
+		ArrayList<Vertex<K,V>> verticesAnteriores = (ArrayList<Vertex<K, V>>) tablaHash.valueSet();
+		for (Vertex<K, V> vertex : verticesAnteriores) {
+			ArrayList<Edge<K,V>> edges = (ArrayList<Edge<K, V>>) vertex.edges();
+			K destino = (K) vertex.getId();
+			if(rta.getVertex(destino)==null) rta.insertVertex(destino, tablaHash.get(destino).getInfo());
+			for (Edge<K, V> edge : edges) {
+				K source = edge.getDest().getId();
+				double peso = edge.weight();
+				if(rta.getVertex(source)==null) rta.insertVertex(source, tablaHash.get(source).getInfo());
+				rta.addEdge(source, destino, peso);
+			}
+		}
+		return rta;
+	}
 
 }

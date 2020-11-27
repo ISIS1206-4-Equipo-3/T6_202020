@@ -166,5 +166,36 @@ public class DiGraphTest {
 		assertEquals(5, digraph.vertices().size());
 		assertEquals(9, digraph2.vertices().size());
 	}
+	
+	@Test
+	public void testDarVuelta() {
+		setUp1();
+		DiGraph aTestear = digraph.darVuelta();
+		
+		assertEquals(5, aTestear.vertices().size());
+		
+		assertEquals(2, aTestear.indegree(1));
+		assertEquals(3, aTestear.indegree(5));
+		assertEquals(1, aTestear.indegree(3));
+		
+		assertEquals(2, aTestear.outdegree(1));
+		assertEquals(3, aTestear.outdegree(2));
+		assertEquals(1, aTestear.outdegree(3));
+		
+		assertEquals(9, aTestear.edges().size());
+		
+		assertEquals(2, aTestear.adjacentVertex(1).size());
+		assertEquals(1, aTestear.adjacentVertex(5).size());
+		assertEquals(1, aTestear.adjacentVertex(3).size());
+		assertEquals(2, aTestear.adjacentVertex(4).size());
+		assertEquals(3, aTestear.adjacentVertex(2).size());
+		
+		assertEquals(2, aTestear.adjacentEdges(1).size());
+		assertEquals(1, aTestear.adjacentEdges(5).size());
+		assertEquals(1, aTestear.adjacentEdges(3).size());
+		assertEquals(2, aTestear.adjacentEdges(4).size());
+		assertEquals(3, aTestear.adjacentEdges(2).size());
+		
+	}
 
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -38,14 +39,27 @@ public class Controlador {
 				case 1:
 
 					if(!verificarDatosCargados()) {view.printError("Se deben cargar primero los datos (OPC.10)"); break;}
-					
-					view.printError("Req aun no realizado");//REQUERERIMIENTO AUN NO REALIZADO (Borrar al realizar)
+					view.printMessage("Escriba dos ID's de estaciones para saber si estas estan fuertemente conectadas (separados por coma).");
+					String idsreq1 = lectura.nextLine();
+					String[] idsreq1array = idsreq1.split(",");
+					if(idsreq1array.length != 2) {view.printError("Se han introducido mas de 2 ID's"); break;}
+					view.printMessage(modelo.cantidadDeClusteresREQ1(Integer.parseInt(idsreq1array[0].trim()),Integer.parseInt(idsreq1array[1].trim())));
 					break;
 				case 2:
 
 					if(!verificarDatosCargados()) {view.printError("Se deben cargar primero los datos (OPC.10)"); break;}
 					
-					view.printError("Req aun no realizado");//REQUERERIMIENTO AUN NO REALIZADO (Borrar al realizar)
+					view.printMessage("Escriba el rango de tiempo disponible para el recorrido (en minutos separado con \"-\")");
+					view.printMessage("   ej: 180-220");
+					String tiemposreq2 = lectura.nextLine();
+					view.printMessage("Escriba el ID de la estacion de partida y llegada");
+					String idEstacionPartidaREQ2 = lectura.nextLine();
+					String[] tiemposreq2array = tiemposreq2.split("-");
+					if(tiemposreq2array.length != 2) {view.printError("Se han introducido mal el formato de tiempos"); break;}
+					if(modelo.darDiGraph().getVertex(Integer.parseInt(idEstacionPartidaREQ2.trim()))==null) {view.printError("No existe una estacion con ese ID"); break;}
+					view.printMessage("¿Cuantas opciones de viajes circulares desea conocer?");
+					Integer cantidadDeOpcionesAImprimir = Integer.parseInt(lectura.nextLine());
+					view.printMessage(modelo.rutaTuristicaCircularREQ2(Integer.parseInt(tiemposreq2array[0].trim()),Integer.parseInt(tiemposreq2array[1].trim()),Integer.parseInt(idEstacionPartidaREQ2.trim()),cantidadDeOpcionesAImprimir));
 					break;
 				case 3:
 

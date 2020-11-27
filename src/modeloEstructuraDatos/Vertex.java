@@ -136,7 +136,17 @@ public class Vertex<K extends Comparable<K>,V> {
 			}
 		}
 		return null;
-		
+	}
+	
+	public Edge<K,V> getEdge(K id){
+		for(int i = 0; i<arcos.size(); i++)
+		{
+			if(arcos.get(i).getDest().getId()==id)
+			{
+				return arcos.get(i);
+			}
+		}
+		return null;
 	}
 	
 	 /**
@@ -153,6 +163,14 @@ public class Vertex<K extends Comparable<K>,V> {
 	  */
 	public List<Edge<K,V>> edges(){
 		return arcos;
+	}
+	
+	public ArrayList<K> darIdsAdyacentes() {
+		ArrayList<K> rta = new ArrayList<K>();
+		for (Edge<K,V> act : arcos) {
+			rta.add(act.getDest().getId());
+		}
+		return rta;
 	}
 	
 	

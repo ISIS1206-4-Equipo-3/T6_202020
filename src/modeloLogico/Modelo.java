@@ -33,7 +33,8 @@ public class Modelo {
 
 	public String RUTA_DATOS_4 = "./data/201801-4-citibike-tripdata.csv";
 
-	public DiGraph graph;
+	private DiGraph graph;
+	private AlgoritmoKosajaru<Integer, String> ADK;
 
 	private FileReader archivo;
 	private CSVReader lector;
@@ -92,14 +93,16 @@ public class Modelo {
 						int idBicicleta = Integer.parseInt(linea[11]);
 						double longitudInicio = Double.parseDouble(linea[6]);
 						double latitudInicio = Double.parseDouble(linea[5]);
+						String nombreInicio = linea[4];
 						double longitudFinal = Double.parseDouble(linea[10]);
 						double latitudFinal = Double.parseDouble(linea[9]);
+						String nombreFinal = linea[8];
 						Viaje viaje = new Viaje(duracionViaje, idInicio, idFinal, idBicicleta, latitudInicio, latitudFinal, longitudInicio, longitudFinal, fechaInicial, fechaFinal);
 						if (!graph.containsVertex(idInicio)) {
-							graph.insertVertex(idInicio, idInicio);
+							graph.insertVertex(idInicio, nombreInicio);
 						}
 						if (!graph.containsVertex(idFinal)) {
-							graph.insertVertex(idFinal, idFinal);
+							graph.insertVertex(idFinal, nombreFinal);
 						}
 						graph.addEdge(idInicio, idFinal, duracionViaje);
 
@@ -133,6 +136,7 @@ public class Modelo {
 			System.out.println("El arco con peso m�nimo conecta el vertice con id "+ arcoMin.getSource().getInfo() +" con el vertice con id "+ arcoMin.getDest().getInfo() + " y su peso es "+ arcoMin.weight());
 			System.out.println("El arco con peso m�ximo conecta el vertice con id "+ arcoMax.getSource().getInfo() +" con el vertice con id "+ arcoMax.getDest().getInfo() + " y su peso es "+ arcoMax.weight());
 			System.out.println("Tiempo que tardo la carga de datos: " + (endTime-startTime)/1e6 + " ms \n\n");
+			ADK = new AlgoritmoKosajaru<Integer, String>(graph);
 		}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -150,6 +154,78 @@ public class Modelo {
 	
 	public DiGraph darDiGraph() {
 		return graph;
+	}
+	
+	public String cantidadDeClusteresREQ1(int id1, int id2) {
+		String rta = "";
+		if(graph.getVertex(id1)==null) return "   ++CAUTION: El id de la estacion " + id1 + " no se encuentra en la base de datos.";
+		if(graph.getVertex(id2)==null) return "   ++CAUTION: El id de la estacion " + id2 + " no se encuentra en la base de datos.";
+		long startTime = System.nanoTime();	
+		rta += "\nEn total se tienen " + ADK.cantidadDeClusters() + " componentes fuertemente conectados.\n";
+		rta += "Las estaciones con ID \"" + id1 + "\" e ID \""+ id2 + "\"";
+		if (!ADK.fuertementeConectados(id1, id2)) rta +=" NO";
+		rta += " estan fuertemente conectadas.\n";
+		long endTime = System.nanoTime();
+		rta += "\nTiempo que tardo el requierimiento: " + (endTime-startTime)/1e6 + " ms\n";
+		return rta;
+	}
+	
+	
+	public String rutaTuristicaCircularREQ2(int minutosMin, int minutosMax, int idEstacion, Integer cantidadDeOpcionesAImprimir) {
+		String rta = "";
+		long startTime = System.nanoTime();	
+		System.out.println("cluster a buscar : " + ADK.darClusterDe(idEstacion));
+		DiGraph <Integer, String> graphoDeCluster = ADK.formarGrafoParaCluster(ADK.darClusterDe(idEstacion));
+		//ADK.imprimirResultados();
+		System.out.println("El cluster contiene las estaciones: " + ADK.darIDsEnCluster(ADK.darClusterDe(idEstacion)));
+		System.out.println("Cargando...");
+		if(graphoDeCluster.numVertices()<2) return "\nNo es posible establecer una ruta circular en esa estacion debido a que existen muy pocos vertices adyacentes a el\n";
+		AlgoritmoJohnson ADJ = new AlgoritmoJohnson();
+		List <List<Vertex<Integer,String>>> listaDeListas = ADJ.simpleCyles(graphoDeCluster, graphoDeCluster.getVertex(idEstacion));
+		double[] tiempoParaCadaRuta = new double[listaDeListas.size()];
+		for(int i =0; i<listaDeListas.size();i++) {
+			List<Vertex<Integer,String>> listaActual = listaDeListas.get(i);
+			double tiempoRuta = 0;
+			for(int j = 1; j<listaActual.size();j++) {
+				tiempoRuta += graphoDeCluster.getVertex(listaActual.get(j-1).getId()).getEdge(listaActual.get(j).getId()).weight();
+			}
+			tiempoRuta += ((listaActual.size()-1)*20);
+			tiempoParaCadaRuta[i] = tiempoRuta;
+		}
+		ArrayList<Integer> viajesFiltrados = new ArrayList<Integer>();
+		for(int i = 0; i<tiempoParaCadaRuta.length;i++) if(tiempoParaCadaRuta[i]>=minutosMin  && tiempoParaCadaRuta[i]<=minutosMax) viajesFiltrados.add(i);
+		
+		if(viajesFiltrados.isEmpty()) {
+			int tiempoMinRuta = (int)tiempoParaCadaRuta[0];
+			int tiempoMaxRuta = (int)tiempoParaCadaRuta[0];
+			for (double doubleeact : tiempoParaCadaRuta) {
+				int intAct = (int)doubleeact;
+				if(intAct<tiempoMinRuta) tiempoMinRuta = intAct;
+				if(intAct>tiempoMaxRuta) tiempoMaxRuta = intAct;
+			}
+			return "\nFue posible establecer " + tiempoParaCadaRuta.length +" rutas circulares, pero no se pudieron a encontrar en ese rango de tiempo\n" 
+			 +"Se encontraron con un minimo de " + tiempoMinRuta + " minutos y un maximo de " + tiempoMaxRuta + " minutos." ;
+		}
+		rta += "\nSe han encontrado " + viajesFiltrados.size() + " viajes circulares que parten y finalizan en la estacion con ID \"" + idEstacion + "\"";
+		rta += "\ny que ademas tienen una duracion media entre " + minutosMin + " minutos y " + minutosMax + " minutos.";
+		rta += "\n(Se imprimieron "+ cantidadDeOpcionesAImprimir+" opciones)";
+		System.out.println("\n\n      Rutas circulares disponibles:\n");
+		int cont = 1;
+		for (Integer integer : viajesFiltrados) {
+			if(cont>cantidadDeOpcionesAImprimir) break;
+			List<Vertex<Integer,String>> listaActual = listaDeListas.get(integer);
+			System.out.println("     Opcion " + cont + ":");
+			for(int j = 1; j<listaActual.size();j++) {
+				System.out.println("         Segmento "+ j + ": " + graphoDeCluster.getVertex(listaActual.get(j-1).getId()).getInfo() + " (ID:"+listaActual.get(j-1).getId() + ") -> " + 
+				graphoDeCluster.getVertex(listaActual.get(j).getId()).getInfo() + " (ID:" + listaActual.get(j).getId() 
+				+ ") --- aprox " + (int)graphoDeCluster.getVertex(listaActual.get(j-1).getId()).getEdge(listaActual.get(j).getId()).weight() + " minutos trayecto + 20 minutos de parada");
+			}
+			System.out.println("");
+			cont++;
+		}
+		long endTime = System.nanoTime();
+		rta += "\nTiempo que tardo el requierimiento: " + (endTime-startTime)/1e6 + " ms\n";
+		return rta;
 	}
 }
 

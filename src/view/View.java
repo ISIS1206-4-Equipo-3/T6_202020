@@ -12,7 +12,7 @@ public class View {
 	public void printMenu()
 	{
 		System.out.println("-----------------------------------------------------------------\n");
-		System.out.println("1. Cantidad de cluster de Viajes (REQ. 1:G)");
+		System.out.println("1. Cantidad de clusteres de Viajes (REQ. 1:G)");
 		System.out.println("2. Ruta turistica Circular (REQ. 2:I)");
 		System.out.println("3. Ruta turistica de menor tiempo (REQ. 3:I)");
 		System.out.println("4. Ruta turistica por resistencia (REQ. 4:I)");
