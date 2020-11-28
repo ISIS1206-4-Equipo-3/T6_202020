@@ -133,8 +133,8 @@ public class Modelo {
 			System.out.println("Se cargaron: "+cantidadDeViajesBicicletaCargados+" viajes\n");
 			System.out.println("Son "+graph.vertices().size()+" estaciones\n");
 			System.out.println("Son "+ arcos.size() +" arcos entre estaciones\n");
-			System.out.println("El arco con peso m�nimo conecta el vertice con id "+ arcoMin.getSource().getInfo() +" con el vertice con id "+ arcoMin.getDest().getInfo() + " y su peso es "+ arcoMin.weight());
-			System.out.println("El arco con peso m�ximo conecta el vertice con id "+ arcoMax.getSource().getInfo() +" con el vertice con id "+ arcoMax.getDest().getInfo() + " y su peso es "+ arcoMax.weight());
+			System.out.println("El arco con peso m�nimo conecta el vertice llamado "+ arcoMin.getSource().getInfo() +" con el vertice llamado "+ arcoMin.getDest().getInfo() + " y su peso es "+ arcoMin.weight());
+			System.out.println("El arco con peso m�ximo conecta el vertice llamado "+ arcoMax.getSource().getInfo() +" con el vertice llamado "+ arcoMax.getDest().getInfo() + " y su peso es "+ arcoMax.weight());
 			System.out.println("Tiempo que tardo la carga de datos: " + (endTime-startTime)/1e6 + " ms \n\n");
 			ADK = new AlgoritmoKosajaru<Integer, String>(graph);
 		}
