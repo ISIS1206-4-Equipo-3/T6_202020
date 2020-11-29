@@ -47,6 +47,12 @@ public class modeloTest {
 		setUp1();
 		assertTrue(!modelo.estacionesCriticas().contains("Las 3 estaciones con mas llegadas son:\n 1. "));
 	}
+	@Test
+	public void testRecomendadorDeRutas()
+	{
+		setUp1();
+		assertEquals("No existe ningun camino entre las estaciones que mas usan las personas en el rango de edad indicado", modelo.recomendadorDeRutas(2));
+	}
 	
 	
 	
