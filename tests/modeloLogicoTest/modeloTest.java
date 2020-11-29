@@ -41,7 +41,12 @@ public class modeloTest {
 		assertEquals(modelo.gradoEntradaSalida(83).contains("El grado de entrada de la estacion 83 es: 3, el de salida es: 162"), true);
 		assertEquals(modelo.gradoEntradaSalida(0).contains("Esta estacion no existe"),true );
 	}
-	
+	@Test
+	public void testEstacionesCriticas()
+	{
+		setUp1();
+		assertTrue(!modelo.estacionesCriticas().contains("Las 3 estaciones con mas llegadas son:\n 1. "));
+	}
 	
 	
 	

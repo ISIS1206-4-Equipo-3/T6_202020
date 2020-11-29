@@ -51,6 +51,7 @@ public class Modelo {
 			cantidadDeViajesBicicletaCargados = 0;
 			String ruta=" ";
 			long startTime = System.nanoTime();	
+			viajes = new ArrayList<Viaje>();
 			graph =  new DiGraph <Integer, String>();
 			for (String numero : lista) {
 				if (numero.equals("1")) ruta = RUTA_DATOS_1;
@@ -98,7 +99,6 @@ public class Modelo {
 						double longitudFinal = Double.parseDouble(linea[10]);
 						double latitudFinal = Double.parseDouble(linea[9]);
 						String nombreFinal = linea[8];
-						viajes = new ArrayList<Viaje>();
 						Viaje viaje = new Viaje(duracionViaje, idInicio, idFinal, idBicicleta, latitudInicio, latitudFinal, longitudInicio, longitudFinal, fechaInicial, fechaFinal);
 						viajes.add(viaje);
 						if (!graph.containsVertex(idInicio)) {
@@ -183,6 +183,7 @@ public class Modelo {
 		String nombreMenorUtilizada3 = "";
 		
 		ArrayList<Vertex<Integer, String>> listaVertices = (ArrayList) graph.vertices();
+		long startTime = System.nanoTime();
 		for (Vertex<Integer, String> vertex : listaVertices) {
 			String nombre = vertex.getInfo();
 			int llegada = 0;
@@ -193,7 +194,7 @@ public class Modelo {
 					llegada++;
 				}
 			}
-			llegada = vertex.getViajesLlegando();
+			vertex.setViajesLlegando(llegada);
 			int salida = vertex.getViajesSaliendo();
 			int suma = llegada + salida;
 			if(llegada>top3Llegada) {
@@ -230,7 +231,7 @@ public class Modelo {
 				top1Salida = salida;
 				nombreTop1Salida = nombre;
 			}
-			else if(llegada > top2Llegada)
+			else if(salida > top2Salida)
 			{
 				top3Salida = top2Salida;
 				nombreTop3Salida = nombreTop2Salida;
@@ -268,8 +269,11 @@ public class Modelo {
 			}
 		}
 		}
-		
-		return "";
+		long endTime = System.nanoTime();
+		return "Las 3 estaciones con mas llegadas son:\n 1." + nombreTop1Llegada + "\n 2."+ nombreTop2Llegada +"\n 3."+ nombreTop3Llegada + ".\n\n "
+				+ "Las 3 estaciones con mas salidas son:\n 1." + nombreTop1Salida + "\n 2."+ nombreTop2Salida + "\n 3."+ nombreTop3Salida + ".\n\n "
+				+ "Las 3 estaciones menos utilizadas son:\n 1." + nombreMenorUtilizada1 + "\n 2."+ nombreMenorUtilizada2 + "\n 3."+ nombreMenorUtilizada3 + ".\n\n "
+				+ "\nTiempo del requerimiento "+ (endTime-startTime)/1e6 + " ms\n";
 	}
 	
 	public String cantidadDeClusteresREQ1(int id1, int id2) {

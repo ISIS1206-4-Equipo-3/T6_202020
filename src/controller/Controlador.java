@@ -64,8 +64,8 @@ public class Controlador {
 				case 3:
 
 					if(!verificarDatosCargados()) {view.printError("Se deben cargar primero los datos (OPC.10)"); break;}
+					view.printMessage(modelo.estacionesCriticas());
 					
-					view.printError("Req aun no realizado");//REQUERERIMIENTO AUN NO REALIZADO (Borrar al realizar)
 					break;
 				case 4:
 
