@@ -34,6 +34,7 @@ public class Modelo {
 	public String RUTA_DATOS_4 = "./data/201801-4-citibike-tripdata.csv";
 
 	private DiGraph graph;
+	private ArrayList<Viaje> viajes;
 	private AlgoritmoKosajaru<Integer, String> ADK;
 
 	private FileReader archivo;
@@ -97,7 +98,9 @@ public class Modelo {
 						double longitudFinal = Double.parseDouble(linea[10]);
 						double latitudFinal = Double.parseDouble(linea[9]);
 						String nombreFinal = linea[8];
+						viajes = new ArrayList<Viaje>();
 						Viaje viaje = new Viaje(duracionViaje, idInicio, idFinal, idBicicleta, latitudInicio, latitudFinal, longitudInicio, longitudFinal, fechaInicial, fechaFinal);
+						viajes.add(viaje);
 						if (!graph.containsVertex(idInicio)) {
 							graph.insertVertex(idInicio, nombreInicio);
 						}
@@ -154,6 +157,119 @@ public class Modelo {
 	
 	public DiGraph darDiGraph() {
 		return graph;
+	}
+	
+	public String estacionesCriticas()
+	{
+		int top1Llegada = 0;
+		String nombreTop1Llegada = "";
+		int top2Llegada = 0;
+		String nombreTop2Llegada = "";
+		int top3Llegada = 0;	
+		String nombreTop3Llegada = "";
+		
+		int top1Salida = 0;
+		String nombreTop1Salida = "";
+		int top2Salida = 0;
+		String nombreTop2Salida = "";
+		int top3Salida = 0;	
+		String nombreTop3Salida = "";
+		
+		int menorUtilizada1 = Integer.MAX_VALUE;
+		int menorUtilizada2 = Integer.MAX_VALUE;
+		int menorUtilizada3 = Integer.MAX_VALUE;
+		String nombreMenorUtilizada1 = ""; 
+		String nombreMenorUtilizada2 = "";
+		String nombreMenorUtilizada3 = "";
+		
+		ArrayList<Vertex<Integer, String>> listaVertices = (ArrayList) graph.vertices();
+		for (Vertex<Integer, String> vertex : listaVertices) {
+			String nombre = vertex.getInfo();
+			int llegada = 0;
+			for (Viaje viaje : viajes) 
+			{
+				if(viaje.getIdFinal() == vertex.getId())
+				{
+					llegada++;
+				}
+			}
+			llegada = vertex.getViajesLlegando();
+			int salida = vertex.getViajesSaliendo();
+			int suma = llegada + salida;
+			if(llegada>top3Llegada) {
+			if(llegada > top1Llegada)
+			{
+				top3Llegada = top2Llegada;
+				nombreTop3Llegada = nombreTop2Llegada;
+				top2Llegada = top1Llegada;
+				nombreTop2Llegada = nombreTop1Llegada;
+				top1Llegada = llegada;
+				nombreTop1Llegada = nombre;
+			}
+			else if(llegada > top2Llegada)
+			{
+				top3Llegada = top2Llegada;
+				nombreTop3Llegada = nombreTop2Llegada;
+				top2Llegada = llegada;
+				nombreTop2Llegada = nombre;
+			}
+			else
+			{
+				top3Llegada = llegada;
+				nombreTop3Llegada = nombre;
+			}
+		}
+		if(salida > top3Salida)	
+		{
+			if(salida > top1Salida)
+			{
+				top3Salida = top2Salida;
+				nombreTop3Salida = nombreTop2Salida;
+				top2Salida = top1Salida;
+				nombreTop2Salida = nombreTop1Salida;
+				top1Salida = salida;
+				nombreTop1Salida = nombre;
+			}
+			else if(llegada > top2Llegada)
+			{
+				top3Salida = top2Salida;
+				nombreTop3Salida = nombreTop2Salida;
+				top2Salida = salida;
+				nombreTop2Salida = nombre;
+			}
+			else
+			{
+				top3Salida = salida;
+				nombreTop3Salida = nombre;
+			}
+		}
+		if(suma < menorUtilizada3)
+		{
+			if(suma<menorUtilizada1)
+			{
+				menorUtilizada3 = menorUtilizada2;
+				nombreMenorUtilizada3 = nombreMenorUtilizada2;
+				menorUtilizada2 = menorUtilizada1;
+				nombreMenorUtilizada2 = nombreMenorUtilizada1;
+				menorUtilizada1 = suma;
+				nombreMenorUtilizada1 = nombre;
+			}
+			else if(suma < menorUtilizada2)
+			{
+				menorUtilizada3 = menorUtilizada2;
+				nombreMenorUtilizada3 = nombreMenorUtilizada2;
+				menorUtilizada2 = suma;
+				nombreMenorUtilizada2 = nombre;
+			}
+			else
+			{
+				menorUtilizada3 = suma;
+				nombreMenorUtilizada3 = nombre;
+			}
+		}
+		}
+		
+		return "";
 	}
 	
 	public String cantidadDeClusteresREQ1(int id1, int id2) {

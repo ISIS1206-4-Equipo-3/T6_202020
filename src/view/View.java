@@ -14,7 +14,7 @@ public class View {
 		System.out.println("-----------------------------------------------------------------\n");
 		System.out.println("1. Cantidad de clusteres de Viajes (REQ. 1:G)");
 		System.out.println("2. Ruta turistica Circular (REQ. 2:I)");
-		System.out.println("3. Ruta turistica de menor tiempo (REQ. 3:I)");
+		System.out.println("3. Estaciones criticas (REQ. 3:I)");
 		System.out.println("4. Ruta turistica por resistencia (REQ. 4:I)");
 		System.out.println("5. Ruta mas corta entre estaciones (Req. 5:G)");
 		System.out.println("6. Ruta de interes turistico (REQ. 6:G)");

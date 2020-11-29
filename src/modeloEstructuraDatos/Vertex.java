@@ -17,6 +17,10 @@ public class Vertex<K extends Comparable<K>,V> {
 	
 	private int gradoOut;
 	
+	private int viajesLlegando;
+	
+	private int viajesSaliendo;
+	
 	private List<Edge<K,V>> arcos;
 	/**
 	 * Crea un vertice con identificador unico y valor 
@@ -33,6 +37,8 @@ public class Vertex<K extends Comparable<K>,V> {
 		vertices = new ArrayList<Vertex<K,V>>();
 		gradoIn = 0;
 		gradoOut = 0;
+		viajesLlegando = 0;
+		viajesSaliendo = 0;
 	}
 	
 	/**
@@ -76,6 +82,29 @@ public class Vertex<K extends Comparable<K>,V> {
 		gradoOut++;
 	}
 	
+	public int getViajesLlegando() {
+		return viajesLlegando;
+	}
+
+	public void setViajesLlegando(int viajesLlegando) {
+		this.viajesLlegando = viajesLlegando;
+	}
+
+	public int getViajesSaliendo() {
+		viajesSaliendo();
+		return viajesSaliendo;
+	}
+
+	public void setViajesSaliendo(int viajesSaliendo) {
+		this.viajesSaliendo = viajesSaliendo;
+	}
+
+	public void viajesSaliendo()
+	{
+		for (Edge<K, V> edge : arcos) {
+			viajesSaliendo += edge.getViajes();
+		}
+	}
 	/**
 	 * Suma 1 al gradoIn, o sea que se cuenta un arco entrante mas
 	 */
