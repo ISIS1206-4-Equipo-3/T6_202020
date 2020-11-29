@@ -26,6 +26,18 @@ public class AlgoritmoJohnson {
 		findCyclesInSCG(vertice,vertice);
 		return allCycles;
 	}
+	
+	public List<List<Vertex<Integer,String>>> cycles(DiGraph<Integer,String> graph, Vertex<Integer,String> verticeInicio, Vertex<Integer,String> verticeFin) {
+		//if(graph.numVertices()<2) return null;
+		blockedSet = new HashSet<>();
+		blockedMap = new HashMap<>();
+		stack = new LinkedList<>();
+		maximo = false;
+		allCycles = new ArrayList<>();
+		blockedMap.clear();
+		findCyclesInSCG(verticeInicio,verticeFin);
+		return allCycles;
+	}
 
 	private void unblock(Vertex<Integer,String> u) {
 		blockedSet.remove(u);

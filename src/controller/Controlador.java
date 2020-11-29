@@ -76,8 +76,25 @@ public class Controlador {
 				case 5:
 
 					if(!verificarDatosCargados()) {view.printError("Se deben cargar primero los datos (OPC.10)"); break;}
+					view.printReq4();
+					try
+					{
+					int indice = Integer.parseInt(lectura.nextLine());
+					if(indice<1 || indice>7)
+					{
+						view.printReq4Error();
+					}
+					else
+					{
+						System.out.println(modelo.recomendadorDeRutas(indice));
+					}
+					}
+					catch(Exception e)
+					{
+						e.printStackTrace();
+						view.printReq4Error();
+					}
 					
-					view.printError("Req aun no realizado");//REQUERERIMIENTO AUN NO REALIZADO (Borrar al realizar)
 					break;
 				case 6:
 

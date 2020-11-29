@@ -14,10 +14,12 @@ public class Viaje {
 	private double longitudFinal;
 	private Date fechaInicio;
 	private Date fechaFinal;
+	private int anoNacimiento;
 	
 	
-	public Viaje(int duracionViaje, int idInicio, int idFinal, int idBicicleta, double latitudInicio, double latitudFinal, double longitudInicio, double longitudFinal, Date fechaInicio, Date fechaFinal) {
+	public Viaje(int duracionViaje, int idInicio, int idFinal, int idBicicleta, double latitudInicio, double latitudFinal, double longitudInicio, double longitudFinal, Date fechaInicio, Date fechaFinal, int anoNacimiento) {
 		
+		this.anoNacimiento = anoNacimiento;
 		this.duracionViaje = duracionViaje;
 		this.idInicio = idInicio;
 		this.idFinal = idFinal;
@@ -39,6 +41,16 @@ public class Viaje {
 		System.out.println("Fecha final: " + (fechaFinal.getYear()+1900) + "-" + (fechaFinal.getMonth()+1) + "-" + fechaFinal.getDate());
 		System.out.println("Duracion Viaje: "+ duracionViaje);
 
+	}
+
+
+	public int getAnoNacimiento() {
+		return anoNacimiento;
+	}
+
+
+	public void setAnoNacimiento(int anoNacimiento) {
+		this.anoNacimiento = anoNacimiento;
 	}
 
 

@@ -17,6 +17,7 @@ import com.opencsv.CSVReaderBuilder;
 
 import modeloEstructuraDatos.DiGraph;
 import modeloEstructuraDatos.Edge;
+import modeloEstructuraDatos.TablaHashLinearProbing;
 import modeloEstructuraDatos.Vertex;
 import modeloEstructuraDatos.Viaje;
 import view.View;
@@ -93,13 +94,14 @@ public class Modelo {
 						int duracionViaje = Integer.parseInt(linea[0]);
 						int idFinal = Integer.parseInt(linea[7]);
 						int idBicicleta = Integer.parseInt(linea[11]);
+						int anoNacimiento = Integer.parseInt(linea[13]);
 						double longitudInicio = Double.parseDouble(linea[6]);
 						double latitudInicio = Double.parseDouble(linea[5]);
 						String nombreInicio = linea[4];
 						double longitudFinal = Double.parseDouble(linea[10]);
 						double latitudFinal = Double.parseDouble(linea[9]);
 						String nombreFinal = linea[8];
-						Viaje viaje = new Viaje(duracionViaje, idInicio, idFinal, idBicicleta, latitudInicio, latitudFinal, longitudInicio, longitudFinal, fechaInicial, fechaFinal);
+						Viaje viaje = new Viaje(duracionViaje, idInicio, idFinal, idBicicleta, latitudInicio, latitudFinal, longitudInicio, longitudFinal, fechaInicial, fechaFinal, anoNacimiento);
 						viajes.add(viaje);
 						if (!graph.containsVertex(idInicio)) {
 							graph.insertVertex(idInicio, nombreInicio);
@@ -276,6 +278,129 @@ public class Modelo {
 				+ "\nTiempo del requerimiento "+ (endTime-startTime)/1e6 + " ms\n";
 	}
 	
+	/**
+	 * 
+	 * @param rango, siendo 1.0-10, 2.11-20, 3.21-30, 4.31-40, 5.41-50, 6.51-60, 7.60+
+	 * @return La respuesta de la ruta ideal para la edad en el rango que llega por parametro
+	 */
+	public String recomendadorDeRutas(int rango)
+	{
+		int anoActual = 2020;
+		ArrayList<Viaje> viajesEnRango = viajesEnRangoEdad(rango, anoActual);
+		TablaHashLinearProbing<Integer, Integer> tablaOrigen = new TablaHashLinearProbing<>(50);
+		TablaHashLinearProbing<Integer, Integer> tablaDestino = new TablaHashLinearProbing<>(50);
+		int idMaximoOrigen = 0;
+		int numMaxViajesOrigen = 0;
+		int idMaximoDestino = 0;
+		int numMaxViajesDestino = 0;
+		long startTime = System.nanoTime();
+		for (Viaje viaje : viajesEnRango) {
+			int numViajesOrigen = 0;
+			int numViajesDestino = 0;
+			if(tablaOrigen.get(viaje.getIdInicio())==null)
+			{
+				tablaOrigen.put(viaje.getIdInicio(), 0);
+			for (Viaje viaje2 : viajesEnRango) {
+				if(viaje.getIdInicio()==viaje2.getIdInicio()) {numViajesOrigen++;}
+			}
+			if(numViajesOrigen>numMaxViajesOrigen) 
+			{	numMaxViajesOrigen = numViajesOrigen; 
+				idMaximoOrigen = viaje.getIdInicio();}
+			}
+			if(tablaDestino.get(viaje.getIdFinal())==null)
+			{
+				tablaDestino.put(viaje.getIdFinal(), 0);
+			for (Viaje viaje2 : viajesEnRango) {
+				if(viaje.getIdFinal()==viaje2.getIdFinal()) {numViajesDestino++;}
+			}
+			if(numViajesDestino>numMaxViajesDestino) 
+			{	numMaxViajesDestino = numViajesDestino; 
+				idMaximoDestino = viaje.getIdFinal();}
+			}
+		}
+		AlgoritmoJohnson ADJ = new AlgoritmoJohnson();
+		List <List<Vertex<Integer,String>>> listaDeCaminos = ADJ.cycles(graph, graph.getVertex(idMaximoOrigen), graph.getVertex(idMaximoDestino));
+		if(listaDeCaminos.size()==0)
+		{
+			return "No existe ningun camino entre las estaciones que mas usan las personas en el rango de edad indicado" ;
+		}
+		double duracionMinima = Integer.MAX_VALUE;
+		List<Vertex<Integer, String>> listaMinima = null;
+		for (List<Vertex<Integer, String>> list : listaDeCaminos) {
+			double duracionCamino = 0;
+			for (int i =0;i<(list.size()-1);i++ ) {
+				List<Edge<Integer, String>> listaArcos = list.get(i).edges();
+				boolean encontro = false;
+				for(int j =0;j<listaArcos.size()&&!encontro;j++)
+				{
+					if(listaArcos.get(j).getDest().equals(list.get(i+1)))
+					{
+						duracionCamino += listaArcos.get(j).weight();
+						encontro = true;
+					}
+				}
+			}
+			if(duracionCamino<duracionMinima)
+			{
+				duracionMinima = duracionCamino;
+				listaMinima = list;
+			}
+		}
+		String resp = "";
+		for(int i =(listaMinima.size()-1); i>=0;i--)
+		{
+			resp += listaMinima.get(i).getInfo() + "\n";
+		}
+		long endTime = System.nanoTime();
+		resp += "\n La duracion de este recorrido es de " + duracionMinima;
+		resp += "\nTiempo que tardo el requerimiento: " + (endTime-startTime)/1e6 + " ms\n";
+		listaDeCaminos=null;
+		listaMinima=null;
+		viajesEnRango = null;
+		tablaDestino = null;
+		tablaOrigen = null;
+		return "La ruta de inicio es: " + graph.getVertex(idMaximoOrigen).getInfo() +"\n"
+				+ "La ruta final es: " + graph.getVertex(idMaximoDestino).getInfo() + "\n"
+				+ "La lista de estaciones en la ruta es: \n" + resp;
+	}
+	public ArrayList<Viaje> viajesEnRangoEdad(int rango, int anoPresente)
+	{
+		ArrayList<Viaje> enRango = new ArrayList<Viaje>();
+		for (Viaje viaje : viajes) {
+			int edad = anoPresente-viaje.getAnoNacimiento();
+			if(rango == 1 )
+			{
+				if(edad>=0 && edad<=10){enRango.add(viaje);}
+			}
+			else if(rango ==2)
+			{
+				if(edad>10 && edad<21){enRango.add(viaje);}
+			}
+			else if(rango ==3)
+			{
+				if(edad>20 && edad<31){enRango.add(viaje);}
+			}
+			else if(rango ==4)
+			{
+				if(edad>30 && edad<41){enRango.add(viaje);}
+			}
+			else if(rango ==5)
+			{
+				if(edad>40 && edad<51){enRango.add(viaje);}
+			}
+			else if(rango ==6)
+			{
+				if(edad>50 && edad<61){enRango.add(viaje);}
+			}
+			else
+			{
+				if(edad>60){enRango.add(viaje);}
+			}
+		}
+		
+		return enRango;
+		
+	}
 	public String cantidadDeClusteresREQ1(int id1, int id2) {
 		String rta = "";
 		if(graph.getVertex(id1)==null) return "   ++CAUTION: El id de la estacion " + id1 + " no se encuentra en la base de datos.";

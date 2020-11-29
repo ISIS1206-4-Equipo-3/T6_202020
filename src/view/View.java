@@ -28,6 +28,21 @@ public class View {
 		
 	}
 
+	public void printReq4()
+	{
+		System.out.println("Indique, del 1 al 7, en cual de los siguientes rangos se encuentra su edad:");
+		System.out.println("1. 0-10");
+		System.out.println("2. 11-20");
+		System.out.println("3. 21-30");
+		System.out.println("4. 31-40");
+		System.out.println("5. 41-50");
+		System.out.println("6. 51-60");
+		System.out.println("7. 60+");
+	}
+	public void printReq4Error()
+	{
+		System.out.println("Recuerde que debe ser un numero del 1 al 7");
+	}
 	public void printError(String mensajeDeError) {
 
 		System.out.println("\n++CAUTION: " + mensajeDeError+ "\n");
