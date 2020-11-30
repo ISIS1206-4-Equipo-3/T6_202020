@@ -6,9 +6,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
-
-
+import java.util.Set;
 
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
@@ -43,7 +43,9 @@ public class Modelo {
 	private int cantidadDeViajesBicicletaCargados;
 	private View view; 
 
-
+	public DiGraph <Integer, String> grafoDeCluster;
+	public ArrayList<ArrayList<Edge<Integer,String>>> resultado; 
+	
 	public Modelo() { view = new View(); }
 
 	public void cargarDatos(String[] lista)
@@ -474,7 +476,75 @@ public class Modelo {
 		return rta;
 	}
 
-	public String rutaTuristicaPorResistencia(int tiempoDisponible, int idEstacionInicio) {
+	
+	public String rutaTuristicaPorResistencia(double tiempoDisponible, int idEstacionInicio) {
+		long startTime = System.nanoTime();	
+		grafoDeCluster = ADK.formarGrafoParaCluster(ADK.darClusterDe(idEstacionInicio));
+		Set<Integer> visitado = new HashSet<Integer>(grafoDeCluster.numEdges());
+		resultado = new ArrayList<ArrayList<Edge<Integer,String>>>();
+		
+		ArrayList<Edge<Integer, String>> primeraRuta = new ArrayList<Edge<Integer,String>>();
+		rutaTuristicaPorResistenciaRecursivo(tiempoDisponible, idEstacionInicio,primeraRuta,visitado);
+		
+		String rta = "Ruta turistica por resistencia\n";
+		int contador = 1;
+		for (ArrayList<Edge<Integer, String>> ruta : resultado) {
+			rta += "Ruta # "+ contador++ +"\n";
+			for (Edge<Integer, String> edge : ruta) {
+				rta += "\tEstacion Inicio "+ edge.getSource().getInfo() + ", estacion final "+ edge.getDest().getInfo() + ". duracion estimada de segmento "+ edge.weight() + " segundos\n";
+			}
+		}
+		long endTime = System.nanoTime();
+		rta += "\nTiempo que tardo el requierimiento: " + (endTime-startTime)/1e6 + " ms\n";
+		return rta;
+		
+	}
+	
+	public void rutaTuristicaPorResistenciaRecursivo(double tiempoDisponible, int idEstacionInicio, ArrayList<Edge<Integer,String>> ruta, Set<Integer> visitadoHastaAhora) {
+//		 ArrayList<Edge<Integer,String>> ruta = new ArrayList<Edge<Integer,String>>(rutaHastaAhora);
+		 Set<Integer> visitado = new HashSet<Integer>(visitadoHastaAhora);
+		visitado.add(idEstacionInicio);
+//		for (Edge<Integer, String> edge : grafoDeCluster.adjacentEdges(idEstacionInicio)) {
+//			System.out.println(edge.getSource().getId()+" "+ edge.getDest().getId() +" " + edge.weight() +"\n");
+//			}
+		boolean esFinal = false;
+		for (Edge<Integer, String> edge : grafoDeCluster.adjacentEdges(idEstacionInicio)) {
+//			System.out.println(idEstacionInicio);
+			if (visitado.contains(edge.getDest().getId())) {
+				esFinal = true;
+				continue;
+			}
+			
+			double pesoRuta = 0.0;
+			for (Edge<Integer, String> edge2 : ruta) {
+				pesoRuta+= edge2.weight();
+			}
+			if (pesoRuta+edge.weight()>tiempoDisponible*60) {
+//				System.out.println("\t"+edge.getDest().getId() + edge.weight());
+				esFinal = true;
+				continue;
+			}
+			 ArrayList<Edge<Integer,String>> rutaNueva = new ArrayList<Edge<Integer,String>> (ruta);
+			rutaNueva.add(edge);
+			rutaTuristicaPorResistenciaRecursivo(tiempoDisponible, edge.getDest().getId(),rutaNueva,visitado);
+			
+		}
+		if (esFinal && !ruta.isEmpty()) {
+			resultado.add(ruta);
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public String rutaTuristicaPorResistenciaJohnson(int tiempoDisponible, int idEstacionInicio) {
 		String rta = "";
 		long startTime = System.nanoTime();	
 		DiGraph <Integer, String> grafoDeCluster = ADK.formarGrafoParaCluster(ADK.darClusterDe(idEstacionInicio));

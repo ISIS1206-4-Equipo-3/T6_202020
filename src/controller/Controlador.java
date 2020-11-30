@@ -74,9 +74,9 @@ public class Controlador {
 					String tiempoDisponible = lectura.nextLine();
 					view.printMessage("Indique el ID de la estacion inicial o de salida");
 					String idEstacion = lectura.nextLine();
-					if(Integer.parseInt(tiempoDisponible)<=0) {view.printError("El tiempo de resistencia debe ser mayor a cero"); break;}
+					if(Double.parseDouble(tiempoDisponible)<=0) {view.printError("El tiempo de resistencia debe ser mayor a cero"); break;}
 					if(modelo.darDiGraph().getVertex(Integer.parseInt(idEstacion.trim()))==null) {view.printError("No existe una estacion con ese ID"); break;}
-					view.printMessage(modelo.rutaTuristicaPorResistencia(Integer.parseInt(tiempoDisponible.trim()),Integer.parseInt(idEstacion.trim())));
+					view.printMessage(modelo.rutaTuristicaPorResistencia(Double.parseDouble(tiempoDisponible.trim()),Integer.parseInt(idEstacion.trim())));
 					
 					
 					
