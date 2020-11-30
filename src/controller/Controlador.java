@@ -69,9 +69,17 @@ public class Controlador {
 					break;
 				case 4:
 
-					if(!verificarDatosCargados()) {view.printError("Se deben cargar primero los datos (OPC.10)"); break;}
+					if(!verificarDatosCargados()) {view.printError("Se deben cargar primero los datos (OPC.10)"); break;}				
+					view.printMessage("Indique el tiempo máximo de resistencia para el recorrido");
+					String tiempoDisponible = lectura.nextLine();
+					view.printMessage("Indique el ID de la estacion inicial o de salida");
+					String idEstacion = lectura.nextLine();
+					if(Integer.parseInt(tiempoDisponible)<=0) {view.printError("El tiempo de resistencia debe ser mayor a cero"); break;}
+					if(modelo.darDiGraph().getVertex(Integer.parseInt(idEstacion.trim()))==null) {view.printError("No existe una estacion con ese ID"); break;}
+					view.printMessage(modelo.rutaTuristicaPorResistencia(Integer.parseInt(tiempoDisponible.trim()),Integer.parseInt(idEstacion.trim())));
 					
-					view.printError("Req aun no realizado");//REQUERERIMIENTO AUN NO REALIZADO (Borrar al realizar)
+					
+					
 					break;
 				case 5:
 
@@ -99,8 +107,17 @@ public class Controlador {
 				case 6:
 
 					if(!verificarDatosCargados()) {view.printError("Se deben cargar primero los datos (OPC.10)"); break;}
+								
+					view.printMessage("Indique su longitud actual");
+					String longitudActual = lectura.nextLine();
+					view.printMessage("Indique su latitud actual");
+					String latitudActual = lectura.nextLine();
+					view.printMessage("Indique la longitud de su destino");
+					String longitudDestino = lectura.nextLine();
+					view.printMessage("Indique la latitud de su destino");
+					String latitudDestino = lectura.nextLine();
+					view.printMessage(modelo.rutaDeInteresTuristico(Double.parseDouble(longitudActual.trim()),Double.parseDouble(latitudActual.trim()),Double.parseDouble(longitudDestino.trim()),Double.parseDouble(latitudDestino.trim())));
 					
-					view.printError("Req aun no realizado");//REQUERERIMIENTO AUN NO REALIZADO (Borrar al realizar)
 					break;
 				case 7:
 
