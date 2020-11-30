@@ -54,6 +54,14 @@ public class modeloTest {
 		assertEquals("No existe ningun camino entre las estaciones que mas usan las personas en el rango de edad indicado", modelo.recomendadorDeRutas(2));
 	}
 	
+	@Test
+	public void testRutaTuristicaPorResistencia()
+	{
+		setUp1();
+		assertNotNull( modelo.rutaTuristicaPorResistencia(10, 72));
+		assertNotNull( modelo.rutaTuristicaPorResistencia(10, 128));
+	}
+	
 	
 	
 	
