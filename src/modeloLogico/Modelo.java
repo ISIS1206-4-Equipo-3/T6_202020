@@ -607,10 +607,10 @@ public class Modelo {
 		double latitudDestinoPersona = latitudDestino;
 		double longitudEstacion = 0.0;
 		double latitudEstacion = 0.0;
-		double distanciaNueva = 0;
-		double distanciaVieja = 0;	
-		double distanciaNuevaFin = 0;
-		double distanciaViejaFin = 0;
+		double distanciaNueva = -1;
+		double distanciaVieja = -1;	
+		double distanciaNuevaFin = -1;
+		double distanciaViejaFin = -1;
 		
 		int idEstacionSalida = 0;
 		int idEstacionLlegada = 0;
@@ -636,7 +636,7 @@ public class Modelo {
 					idEstacionSalida = viaje.getIdInicio();
 				}
 				distanciaVieja = distanciaNueva;
-				distanciaNueva = 0;
+				distanciaNueva = -1;
 			}
 			for (Viaje viaje : viajes) 
 			{
@@ -649,7 +649,7 @@ public class Modelo {
 					idEstacionLlegada = viaje.getIdInicio();
 				}
 				distanciaViejaFin = distanciaNuevaFin;
-				distanciaNuevaFin = 0;
+				distanciaNuevaFin = -1;
 			}
 		}
 		for (Vertex<Integer, String> vertex : listaVertices) {
