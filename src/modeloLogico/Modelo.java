@@ -275,17 +275,10 @@ public class Modelo {
 			}
 		}
 		long endTime = System.nanoTime();
-<<<<<<< HEAD
-		return "Las 3 estaciones con mas llegadas son:\n 1." + nombreTop1Llegada + "Con " + top1Llegada  + "\n 2."+ nombreTop2Llegada + "Con " + top2Llegada + "\n 3."+ nombreTop3Llegada + "Con " + top3Llegada  + ".\n\n "
-				+ "Las 3 estaciones con mas salidas son:\n 1." + nombreTop1Salida + "Con " + top1Salida + "\n 2."+ nombreTop2Salida + "Con " + top2Salida  +"\n 3."+ nombreTop3Salida + "Con " + top3Salida + ".\n\n "
-				+ "Las 3 estaciones menos utilizadas son:\n 1." + nombreMenorUtilizada1 + "Con " + menorUtilizada1 + "\n 2."+ nombreMenorUtilizada2 + "Con " + menorUtilizada2  + "\n 3."+ nombreMenorUtilizada3 + "Con " + menorUtilizada1 +  ".\n\n "
+		return "Las 3 estaciones con mas llegadas son:\n 1." + nombreTop1Llegada + " Con " + top1Llegada  + "\n 2."+ nombreTop2Llegada + " Con " + top2Llegada + "\n 3."+ nombreTop3Llegada + " Con " + top3Llegada  + ".\n\n "
+				+ "Las 3 estaciones con mas salidas son:\n 1." + nombreTop1Salida + " Con " + top1Salida + "\n 2."+ nombreTop2Salida + " Con " + top2Salida  +"\n 3."+ nombreTop3Salida + " Con " + top3Salida + ".\n\n "
+				+ "Las 3 estaciones menos utilizadas son:\n 1." + nombreMenorUtilizada1 + " Con " + menorUtilizada1 + "\n 2."+ nombreMenorUtilizada2 + " Con " + menorUtilizada2  + "\n 3."+ nombreMenorUtilizada3 + " Con " + menorUtilizada1 +  ".\n\n "
 				+ "\nTiempo del requerimiento "+ (endTime-startTime)/1e6 + " ms\n";
-=======
-		return "Las 3 estaciones con mas llegadas son:\n 1." + nombreTop1Llegada + "\n 2."+ nombreTop2Llegada +"\n 3."+ nombreTop3Llegada + ".\n\n "
-		+ "Las 3 estaciones con mas salidas son:\n 1." + nombreTop1Salida + "\n 2."+ nombreTop2Salida + "\n 3."+ nombreTop3Salida + ".\n\n "
-		+ "Las 3 estaciones menos utilizadas son:\n 1." + nombreMenorUtilizada1 + "\n 2."+ nombreMenorUtilizada2 + "\n 3."+ nombreMenorUtilizada3 + ".\n\n "
-		+ "\nTiempo del requerimiento "+ (endTime-startTime)/1e6 + " ms\n";
->>>>>>> master
 	}
 	
 	/**
