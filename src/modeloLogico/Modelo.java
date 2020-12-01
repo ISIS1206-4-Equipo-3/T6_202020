@@ -690,7 +690,7 @@ public class Modelo {
 			resp += listaMinima.get(i).getInfo() + "\n";
 		}
 		long endTime = System.nanoTime();
-		resp += "\nLa duracion de este recorrido es de " + menosTiempo;
+		resp += "\nLa duracion de este recorrido es de " + menosTiempo + "minutos";
 		resp += "\n\nTiempo que tardo el requerimiento: " + (endTime-startTime)/1e6 + " ms\n";
 		caminos=null;
 		listaMinima=null;
