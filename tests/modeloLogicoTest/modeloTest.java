@@ -61,7 +61,13 @@ public class modeloTest {
 		assertNotNull( modelo.rutaTuristicaPorResistencia(10, 72));
 		assertNotNull( modelo.rutaTuristicaPorResistencia(10, 128));
 	}
-	
+	@Test
+	public void testRutaDeInteresTuristico()
+	{
+		setUp1();
+		assertNotNull( modelo.rutaDeInteresTuristico(-73.99392555, 40.76727216, -73.95928176, 40.68676784));
+		
+	}
 	
 	
 	
