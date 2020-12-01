@@ -45,7 +45,7 @@ public class Modelo {
 
 	public DiGraph <Integer, String> grafoDeCluster;
 	public ArrayList<ArrayList<Edge<Integer,String>>> resultado; 
-	
+
 	public Modelo() { view = new View(); }
 
 	public void cargarDatos(String[] lista)
@@ -275,11 +275,11 @@ public class Modelo {
 		}
 		long endTime = System.nanoTime();
 		return "Las 3 estaciones con mas llegadas son:\n 1." + nombreTop1Llegada + " Con " + top1Llegada  + "\n 2."+ nombreTop2Llegada + " Con " + top2Llegada + "\n 3."+ nombreTop3Llegada + " Con " + top3Llegada  + ".\n\n "
-				+ "Las 3 estaciones con mas salidas son:\n 1." + nombreTop1Salida + " Con " + top1Salida + "\n 2."+ nombreTop2Salida + " Con " + top2Salida  +"\n 3."+ nombreTop3Salida + " Con " + top3Salida + ".\n\n "
-				+ "Las 3 estaciones menos utilizadas son:\n 1." + nombreMenorUtilizada1 + " Con " + menorUtilizada1 + "\n 2."+ nombreMenorUtilizada2 + " Con " + menorUtilizada2  + "\n 3."+ nombreMenorUtilizada3 + " Con " + menorUtilizada1 +  ".\n\n "
-				+ "\nTiempo del requerimiento "+ (endTime-startTime)/1e6 + " ms\n";
+		+ "Las 3 estaciones con mas salidas son:\n 1." + nombreTop1Salida + " Con " + top1Salida + "\n 2."+ nombreTop2Salida + " Con " + top2Salida  +"\n 3."+ nombreTop3Salida + " Con " + top3Salida + ".\n\n "
+		+ "Las 3 estaciones menos utilizadas son:\n 1." + nombreMenorUtilizada1 + " Con " + menorUtilizada1 + "\n 2."+ nombreMenorUtilizada2 + " Con " + menorUtilizada2  + "\n 3."+ nombreMenorUtilizada3 + " Con " + menorUtilizada1 +  ".\n\n "
+		+ "\nTiempo del requerimiento "+ (endTime-startTime)/1e6 + " ms\n";
 	}
-	
+
 	/**
 	 * 
 	 * @param rango, siendo 1.0-10, 2.11-20, 3.21-30, 4.31-40, 5.41-50, 6.51-60, 7.60+
@@ -302,21 +302,21 @@ public class Modelo {
 			if(tablaOrigen.get(viaje.getIdInicio())==null)
 			{
 				tablaOrigen.put(viaje.getIdInicio(), 0);
-			for (Viaje viaje2 : viajesEnRango) {
-				if(viaje.getIdInicio()==viaje2.getIdInicio()) {numViajesOrigen++;}
-			}
-			if(numViajesOrigen>numMaxViajesOrigen) 
-			{	numMaxViajesOrigen = numViajesOrigen; 
+				for (Viaje viaje2 : viajesEnRango) {
+					if(viaje.getIdInicio()==viaje2.getIdInicio()) {numViajesOrigen++;}
+				}
+				if(numViajesOrigen>numMaxViajesOrigen) 
+				{	numMaxViajesOrigen = numViajesOrigen; 
 				idMaximoOrigen = viaje.getIdInicio();}
 			}
 			if(tablaDestino.get(viaje.getIdFinal())==null)
 			{
 				tablaDestino.put(viaje.getIdFinal(), 0);
-			for (Viaje viaje2 : viajesEnRango) {
-				if(viaje.getIdFinal()==viaje2.getIdFinal()) {numViajesDestino++;}
-			}
-			if(numViajesDestino>numMaxViajesDestino) 
-			{	numMaxViajesDestino = numViajesDestino; 
+				for (Viaje viaje2 : viajesEnRango) {
+					if(viaje.getIdFinal()==viaje2.getIdFinal()) {numViajesDestino++;}
+				}
+				if(numViajesDestino>numMaxViajesDestino) 
+				{	numMaxViajesDestino = numViajesDestino; 
 				idMaximoDestino = viaje.getIdFinal();}
 			}
 		}
@@ -362,8 +362,8 @@ public class Modelo {
 		tablaDestino = null;
 		tablaOrigen = null;
 		return "La ruta de inicio es: " + graph.getVertex(idMaximoOrigen).getInfo() +"\n"
-				+ "La ruta final es: " + graph.getVertex(idMaximoDestino).getInfo() + "\n"
-				+ "La lista de estaciones en la ruta es: \n" + resp;
+		+ "La ruta final es: " + graph.getVertex(idMaximoDestino).getInfo() + "\n"
+		+ "La lista de estaciones en la ruta es: \n" + resp;
 	}
 	public ArrayList<Viaje> viajesEnRangoEdad(int rango, int anoPresente)
 	{
@@ -399,9 +399,9 @@ public class Modelo {
 				if(edad>60){enRango.add(viaje);}
 			}
 		}
-		
+
 		return enRango;
-		
+
 	}
 	public String cantidadDeClusteresREQ1(int id1, int id2) {
 		String rta = "";
@@ -475,16 +475,16 @@ public class Modelo {
 		return rta;
 	}
 
-	
+
 	public String rutaTuristicaPorResistencia(double tiempoDisponible, int idEstacionInicio) {
 		long startTime = System.nanoTime();	
 		grafoDeCluster = ADK.formarGrafoParaCluster(ADK.darClusterDe(idEstacionInicio));
 		Set<Integer> visitado = new HashSet<Integer>(grafoDeCluster.numEdges());
 		resultado = new ArrayList<ArrayList<Edge<Integer,String>>>();
-		
+
 		ArrayList<Edge<Integer, String>> primeraRuta = new ArrayList<Edge<Integer,String>>();
 		rutaTuristicaPorResistenciaRecursivo(tiempoDisponible, idEstacionInicio,primeraRuta,visitado);
-		
+
 		String rta = "Ruta turistica por resistencia\n";
 		int contador = 1;
 		for (ArrayList<Edge<Integer, String>> ruta : resultado) {
@@ -496,53 +496,45 @@ public class Modelo {
 		long endTime = System.nanoTime();
 		rta += "\nTiempo que tardo el requierimiento: " + (endTime-startTime)/1e6 + " ms\n";
 		return rta;
-		
+
 	}
-	
+
 	public void rutaTuristicaPorResistenciaRecursivo(double tiempoDisponible, int idEstacionInicio, ArrayList<Edge<Integer,String>> ruta, Set<Integer> visitadoHastaAhora) {
-//		 ArrayList<Edge<Integer,String>> ruta = new ArrayList<Edge<Integer,String>>(rutaHastaAhora);
-		 Set<Integer> visitado = new HashSet<Integer>(visitadoHastaAhora);
+		//		 ArrayList<Edge<Integer,String>> ruta = new ArrayList<Edge<Integer,String>>(rutaHastaAhora);
+		Set<Integer> visitado = new HashSet<Integer>(visitadoHastaAhora);
 		visitado.add(idEstacionInicio);
-//		for (Edge<Integer, String> edge : grafoDeCluster.adjacentEdges(idEstacionInicio)) {
-//			System.out.println(edge.getSource().getId()+" "+ edge.getDest().getId() +" " + edge.weight() +"\n");
-//			}
+		//		for (Edge<Integer, String> edge : grafoDeCluster.adjacentEdges(idEstacionInicio)) {
+		//			System.out.println(edge.getSource().getId()+" "+ edge.getDest().getId() +" " + edge.weight() +"\n");
+		//			}
 		boolean esFinal = false;
 		for (Edge<Integer, String> edge : grafoDeCluster.adjacentEdges(idEstacionInicio)) {
-//			System.out.println(idEstacionInicio);
+			//			System.out.println(idEstacionInicio);
 			if (visitado.contains(edge.getDest().getId())) {
 				esFinal = true;
 				continue;
 			}
-			
+
 			double pesoRuta = 0.0;
 			for (Edge<Integer, String> edge2 : ruta) {
 				pesoRuta+= edge2.weight();
 			}
 			if (pesoRuta+edge.weight()>tiempoDisponible*60) {
-//				System.out.println("\t"+edge.getDest().getId() + edge.weight());
+				//				System.out.println("\t"+edge.getDest().getId() + edge.weight());
 				esFinal = true;
 				continue;
 			}
-			 ArrayList<Edge<Integer,String>> rutaNueva = new ArrayList<Edge<Integer,String>> (ruta);
+			ArrayList<Edge<Integer,String>> rutaNueva = new ArrayList<Edge<Integer,String>> (ruta);
 			rutaNueva.add(edge);
 			rutaTuristicaPorResistenciaRecursivo(tiempoDisponible, edge.getDest().getId(),rutaNueva,visitado);
-			
+
 		}
 		if (esFinal && !ruta.isEmpty()) {
 			resultado.add(ruta);
 		}
-		
-		
+
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public String rutaTuristicaPorResistenciaJohnson(int tiempoDisponible, int idEstacionInicio) {
 		String rta = "";
 		long startTime = System.nanoTime();	
@@ -595,9 +587,6 @@ public class Modelo {
 	}
 
 	
-	
-	
-	
 	public String rutaDeInteresTuristico(double longitudActual, double latitudActual, double longitudDestino, double latitudDestino) {
 
 		double longitudActualPersona = longitudActual;
@@ -610,65 +599,63 @@ public class Modelo {
 		double distanciaVieja = Integer.MAX_VALUE;	
 		double distanciaNuevaFin = -1;
 		double distanciaViejaFin = Integer.MAX_VALUE;
-		
+
 		int idEstacionSalida = 0;
 		int idEstacionLlegada = 0;
-			
-		String nombreEstacionSalida = "";
-		String nombreEstacionLlegada = "";
 
-		
-
-		ArrayList<Vertex<Integer, String>> listaVertices = (ArrayList) graph.vertices();
+		//		String nombreEstacionSalida = "";
+		//		String nombreEstacionLlegada = "";
+		//		ArrayList<Vertex<Integer, String>> listaVertices = (ArrayList) graph.vertices();
 		long startTime = System.nanoTime();
-//		for (Vertex<Integer, String> vertex : listaVertices) {
-	
-			for (Viaje viaje : viajes) 
-			{	
-				latitudEstacion = viaje.getLatitudInicio();
-				longitudEstacion = viaje.getLongitudInicio();
-				
-				distanciaNueva = Math.sqrt(Math.pow((longitudEstacion-longitudActualPersona), 2)+Math.pow((latitudEstacion-latitudActualPersona),2));
-		
-				if (distanciaNueva<distanciaVieja) {
-					idEstacionSalida = viaje.getIdInicio();
-					distanciaVieja = distanciaNueva;
-				}
-				
-				distanciaNueva = -1;
+
+
+		for (Viaje viaje : viajes) 
+		{	
+			latitudEstacion = viaje.getLatitudInicio();
+			longitudEstacion = viaje.getLongitudInicio();
+
+			distanciaNueva = Math.sqrt(Math.pow((longitudEstacion-longitudActualPersona), 2)+Math.pow((latitudEstacion-latitudActualPersona),2));
+
+			if (distanciaNueva<distanciaVieja) {
+				idEstacionSalida = viaje.getIdInicio();
+				distanciaVieja = distanciaNueva;
 			}
-				latitudEstacion = 0.0;
-				longitudEstacion = 0.0;
-			for (Viaje viaje : viajes) 
-			{
-				latitudEstacion = viaje.getLatitudFinal();
-				longitudEstacion = viaje.getLongitudFinal();
-				
-				distanciaNuevaFin = Math.sqrt(Math.pow((longitudEstacion-longitudDestinoPersona), 2)+Math.pow((latitudEstacion-latitudDestinoPersona),2));
-				
-				if (distanciaNuevaFin<distanciaViejaFin) {
-					idEstacionLlegada = viaje.getIdFinal();
-					distanciaViejaFin = distanciaNuevaFin;
-				}
-				
-				distanciaNuevaFin = -1;
-			}
-//		}
-		for (Vertex<Integer, String> vertex : listaVertices) {
-			
-			String nombre = vertex.getInfo();
-			if (idEstacionSalida==vertex.getId()) {
-				nombreEstacionSalida = vertex.getInfo();
-			}
+
+			distanciaNueva = -1;
 		}
-		for (Vertex<Integer, String> vertex : listaVertices) {
-			String nombre = vertex.getInfo();
-			if (idEstacionLlegada==vertex.getId()) {
-				nombreEstacionLlegada = vertex.getInfo();
+		latitudEstacion = 0.0;
+		longitudEstacion = 0.0;
+		for (Viaje viaje : viajes) 
+		{
+			latitudEstacion = viaje.getLatitudFinal();
+			longitudEstacion = viaje.getLongitudFinal();
+
+			distanciaNuevaFin = Math.sqrt(Math.pow((longitudEstacion-longitudDestinoPersona), 2)+Math.pow((latitudEstacion-latitudDestinoPersona),2));
+
+			if (distanciaNuevaFin<distanciaViejaFin) {
+				idEstacionLlegada = viaje.getIdFinal();
+				distanciaViejaFin = distanciaNuevaFin;
 			}
+
+			distanciaNuevaFin = -1;
 		}
-		
-		//prueba
+
+		//		Prueba
+		//		for (Vertex<Integer, String> vertex : listaVertices) {
+		//			
+		//			String nombre = vertex.getInfo();
+		//			if (idEstacionSalida==vertex.getId()) {
+		//				nombreEstacionSalida = vertex.getInfo();
+		//			}
+		//		}
+		//		for (Vertex<Integer, String> vertex : listaVertices) {
+		//			String nombre = vertex.getInfo();
+		//			if (idEstacionLlegada==vertex.getId()) {
+		//				nombreEstacionLlegada = vertex.getInfo();
+		//			}
+		//		}
+
+
 		AlgoritmoJohnson ADJ = new AlgoritmoJohnson();
 		List <List<Vertex<Integer,String>>> caminos = ADJ.cycles(graph, graph.getVertex(idEstacionSalida), graph.getVertex(idEstacionLlegada));
 		if(caminos.size()==0)
@@ -703,20 +690,15 @@ public class Modelo {
 			resp += listaMinima.get(i).getInfo() + "\n";
 		}
 		long endTime = System.nanoTime();
-		resp += "\nLa duracion de este recorrido es de " + menosTiempo;
+		resp += "\nLa duracion de este recorrido es de " + menosTiempo*60 + "minutos";
 		resp += "\n\nTiempo que tardo el requerimiento: " + (endTime-startTime)/1e6 + " ms\n";
 		caminos=null;
 		listaMinima=null;
 
 		return "\nLa estacion mas cercana es: " + graph.getVertex(idEstacionSalida).getInfo() +"\n"
-				+ "\nLa estacion mas cercana al lugar turistico es: " + graph.getVertex(idEstacionLlegada).getInfo() + "\n"
-				+ "\nLa lista de estaciones en la ruta es: \n" + "\n"+resp;
-		
-		
-		
-		//fin prueba
+		+ "\nLa estacion mas cercana al lugar turistico es: " + graph.getVertex(idEstacionLlegada).getInfo() + "\n"
+		+ "\nLa lista de estaciones en la ruta es: \n" + "\n"+resp;
 
-//		return "La estacion de inicio mas cercana es: \n"+nombreEstacionSalida +"\nLa estacion mas cercana al lugar turistico es:\n " +nombreEstacionLlegada + "\nTiempo del requerimiento "+ (endTime-startTime)/1e6 + " ms\n";
 	}
 }
 
