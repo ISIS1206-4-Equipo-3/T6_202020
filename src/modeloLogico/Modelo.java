@@ -667,8 +667,56 @@ public class Modelo {
 				nombreEstacionLlegada = vertex.getInfo();
 			}
 		}
+		
+		//prueba
+		AlgoritmoJohnson ADJ = new AlgoritmoJohnson();
+		List <List<Vertex<Integer,String>>> caminos = ADJ.cycles(graph, graph.getVertex(idEstacionSalida), graph.getVertex(idEstacionLlegada));
+		if(caminos.size()==0)
+		{
+			return "No existe ningun camino usando las estaciones para llegar a tu destino" ;
+		}
+		double menosTiempo = Integer.MAX_VALUE;
+		List<Vertex<Integer, String>> listaMinima = null;
+		for (List<Vertex<Integer, String>> list : caminos) {
+			double tiempoCamino = 0;
+			for (int i =0;i<(list.size()-1);i++ ) {
+				List<Edge<Integer, String>> listaArcos = list.get(i).edges();
+				boolean encontro = false;
+				for(int j =0;j<listaArcos.size()&&!encontro;j++)
+				{
+					if(listaArcos.get(j).getDest().equals(list.get(i+1)))
+					{
+						tiempoCamino += listaArcos.get(j).weight();
+						encontro = true;
+					}
+				}
+			}
+			if(tiempoCamino<menosTiempo)
+			{
+				menosTiempo = tiempoCamino;
+				listaMinima = list;
+			}
+		}
+		String resp = "";
+		for(int i =(listaMinima.size()-1); i>=0;i--)
+		{
+			resp += listaMinima.get(i).getInfo() + "\n";
+		}
 		long endTime = System.nanoTime();
-		return "La estacion de inicio mas cercada es: \n"+nombreEstacionSalida +"\n La estacion mas cercana al lugar turistico es: \n " +nombreEstacionLlegada + "\nTiempo del requerimiento "+ (endTime-startTime)/1e6 + " ms\n";
+		resp += "\nLa duracion de este recorrido es de " + menosTiempo;
+		resp += "\n\nTiempo que tardo el requerimiento: " + (endTime-startTime)/1e6 + " ms\n";
+		caminos=null;
+		listaMinima=null;
+
+		return "\nLa estacion mas cercana es: " + graph.getVertex(idEstacionSalida).getInfo() +"\n"
+				+ "\nLa estacion mas cercana al lugar turistico es: " + graph.getVertex(idEstacionLlegada).getInfo() + "\n"
+				+ "\nLa lista de estaciones en la ruta es: \n" + "\n"+resp;
+		
+		
+		
+		//fin prueba
+
+//		return "La estacion de inicio mas cercana es: \n"+nombreEstacionSalida +"\nLa estacion mas cercana al lugar turistico es:\n " +nombreEstacionLlegada + "\nTiempo del requerimiento "+ (endTime-startTime)/1e6 + " ms\n";
 	}
 }
 
