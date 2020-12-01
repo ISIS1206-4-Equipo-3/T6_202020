@@ -58,6 +58,7 @@ public class AlgoritmoJohnson {
 		stack.push(currentVertex);
 		blockedSet.add(currentVertex);
 
+		if(currentVertex!=null) {
 		for (Edge<Integer,String> e : currentVertex.edges()) {
 			if(maximo) break;
 			Vertex<Integer,String> neighbor = e.getDest();
@@ -75,6 +76,7 @@ public class AlgoritmoJohnson {
 						findCyclesInSCG(startVertex, neighbor);
 				foundCycle = foundCycle || gotCycle;
 			}
+		}
 		}
 		if (foundCycle) {
 			unblock(currentVertex);
