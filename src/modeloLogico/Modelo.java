@@ -190,7 +190,6 @@ public class Modelo {
 		long startTime = System.nanoTime();
 		for (Vertex<Integer, String> vertex : listaVertices) {
 			String nombre = vertex.getInfo();
-
 			int llegada = 0;
 			for (Viaje viaje : viajes) 
 			{
@@ -603,14 +602,14 @@ public class Modelo {
 
 		double longitudActualPersona = longitudActual;
 		double latitudActualPersona = latitudActual;
-		double longitudDestinoPersona = latitudActual;
+		double longitudDestinoPersona = longitudDestino;
 		double latitudDestinoPersona = latitudDestino;
 		double longitudEstacion = 0.0;
 		double latitudEstacion = 0.0;
 		double distanciaNueva = -1;
-		double distanciaVieja = -1;	
+		double distanciaVieja = Integer.MAX_VALUE;	
 		double distanciaNuevaFin = -1;
-		double distanciaViejaFin = -1;
+		double distanciaViejaFin = Integer.MAX_VALUE;
 		
 		int idEstacionSalida = 0;
 		int idEstacionLlegada = 0;
@@ -622,37 +621,41 @@ public class Modelo {
 
 		ArrayList<Vertex<Integer, String>> listaVertices = (ArrayList) graph.vertices();
 		long startTime = System.nanoTime();
-		for (Vertex<Integer, String> vertex : listaVertices) {
-			
-			
+//		for (Vertex<Integer, String> vertex : listaVertices) {
+	
 			for (Viaje viaje : viajes) 
-			{
+			{	
 				latitudEstacion = viaje.getLatitudInicio();
 				longitudEstacion = viaje.getLongitudInicio();
 				
 				distanciaNueva = Math.sqrt(Math.pow((longitudEstacion-longitudActualPersona), 2)+Math.pow((latitudEstacion-latitudActualPersona),2));
-				
+		
 				if (distanciaNueva<distanciaVieja) {
 					idEstacionSalida = viaje.getIdInicio();
+					distanciaVieja = distanciaNueva;
 				}
-				distanciaVieja = distanciaNueva;
+				
 				distanciaNueva = -1;
 			}
+				latitudEstacion = 0.0;
+				longitudEstacion = 0.0;
 			for (Viaje viaje : viajes) 
 			{
-				latitudEstacion = viaje.getLatitudInicio();
-				longitudEstacion = viaje.getLongitudInicio();
+				latitudEstacion = viaje.getLatitudFinal();
+				longitudEstacion = viaje.getLongitudFinal();
 				
 				distanciaNuevaFin = Math.sqrt(Math.pow((longitudEstacion-longitudDestinoPersona), 2)+Math.pow((latitudEstacion-latitudDestinoPersona),2));
 				
 				if (distanciaNuevaFin<distanciaViejaFin) {
-					idEstacionLlegada = viaje.getIdInicio();
+					idEstacionLlegada = viaje.getIdFinal();
+					distanciaViejaFin = distanciaNuevaFin;
 				}
-				distanciaViejaFin = distanciaNuevaFin;
+				
 				distanciaNuevaFin = -1;
 			}
-		}
+//		}
 		for (Vertex<Integer, String> vertex : listaVertices) {
+			
 			String nombre = vertex.getInfo();
 			if (idEstacionSalida==vertex.getId()) {
 				nombreEstacionSalida = vertex.getInfo();
@@ -665,7 +668,7 @@ public class Modelo {
 			}
 		}
 		long endTime = System.nanoTime();
-		return "La estaci�n de inicio m�s cercada es: \n"+nombreEstacionSalida +"\n La estaci�n mas cercana al lugar turistico es: \n " +nombreEstacionLlegada + "\nTiempo del requerimiento "+ (endTime-startTime)/1e6 + " ms\n";
+		return "La estacion de inicio mas cercada es: \n"+nombreEstacionSalida +"\n La estacion mas cercana al lugar turistico es: \n " +nombreEstacionLlegada + "\nTiempo del requerimiento "+ (endTime-startTime)/1e6 + " ms\n";
 	}
 }
 
